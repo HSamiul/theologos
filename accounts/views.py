@@ -1,6 +1,15 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 
-# Create your views here.
 def register(request):
-    return HttpResponse('Hi')
+    if (request.POST == 'POST'):
+        form = UserCreationForm()
+        
+        if form.is_valid(): # how could it not be valid if I'm instiating it myself?
+            form.save()
+    else:
+        form = UserCreationForm()
+    
+    context = { 'form': form }
+    
+    return render(request, 'accounts/register.html', context)

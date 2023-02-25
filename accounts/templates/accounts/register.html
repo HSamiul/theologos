@@ -1,11 +1,9 @@
 <h1>Register</h1>
 
-<form>
-    <label for='username'>Username: </label>
-    <input id='username' type='text' name='username'>
-    
-    <label for='password'>Password: </label>
-    <input id='username' type='password' name='password'>
+<form method='POST'>
+    {% csrf_token %}
 
-    <input type='submit' value='Register'>
+    <table>
+        {{ form.as_table }}
+    </table>
 </form>
