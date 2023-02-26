@@ -4,19 +4,17 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 
 def register(request):
-    if request.method == 'POST': # if this URL was requested via a POST method...
-        form = UserCreationForm(request.POST) # create form with the POST data
+    # if this URL was requested via a POST method, try creating a user
+    if request.method == 'POST': 
+        form = UserCreationForm(request.POST) # use POST data to create a form
         
-        if form.is_valid(): # validate and save the form (account)
+        if form.is_valid():
             form.save()  
-            messages.success(request, 'Account created successfully') # Flash a success message
-            return HttpResponse('Created your account!') # TODO: Redirect to account page
+            messages.success(request, 'Account created successfully') # flash a success message
+            return HttpResponse('Created your account!')
   
-    else:  # URL was requested via GET, so just display the form
-        form = UserCreationForm()  
-        
-    context = {  
-        'form':form,
-    }
-      
-    return render(request, 'accounts/register.html', context)
+    # otherwise, display a form to register a user
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'accounts/register.html', {'form': form})
