@@ -13,14 +13,14 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True, db_index=True)
     
     # Each `User` is required to have a first name to display on their profile.
-    first_name = models.CharField(max_length=150, required=True)
+    first_name = models.CharField(max_length=150)
 
     # Each `User` is required to have a last name to display on their profile.
-    last_name = models.CharField(max_length=150, required=True)
+    last_name = models.CharField(max_length=150)
 
     # Each `User` is required to have an email address in order for the 
     # application to contact users during login.
-    email = models.EmailField(db_index=True, unique=True, required=True)
+    email = models.EmailField(db_index=True, unique=True)
 
     # The `is_active` flag designates whether the user is active or not. For
     # example, when a user is banned or wants to delete their account, 
