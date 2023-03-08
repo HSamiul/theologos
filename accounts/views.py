@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 
+from .forms import CustomUserCreationForm
+
 def register(request):
     # if this URL was requested via a POST method, try creating a user
     if request.method == 'POST': 
-        form = UserCreationForm(request.POST) # use POST data to create a form
+        form = CustomUserCreationForm(request.POST) # use POST data to create a form
         
         if form.is_valid():
             form.save()  
@@ -15,6 +17,6 @@ def register(request):
   
     # otherwise, display a form to register a user
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     
     return render(request, 'accounts/register.html', {'form': form})
