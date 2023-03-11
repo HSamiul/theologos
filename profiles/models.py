@@ -11,7 +11,7 @@ class Profile(models.Model):
     '''
 
     # Each `Profile` has one `User` and each `User` has one `Profile`
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE)
 
     # Each `Profile` may have a profile photo to display next to profile's
     # comments.
