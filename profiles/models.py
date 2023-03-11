@@ -1,7 +1,6 @@
 from django.db import models
-from django.core.validators import RegexValidator
 
-from ..accounts.models import User
+from .validators import validate_dob, validate_phone
 
 class Profile(models.Model):
     '''
@@ -20,8 +19,8 @@ class Profile(models.Model):
 
     # Each `Profile` may have a date of birth so that the commentaries they see
     # can be tailored to their age group.
-    dob = models.DateField(blank=True)
-    
+    dob = models.DateField(validators=[validate_dob], blank=True)
+
     class FaithTradition(models.TextChoices):
         '''
         An enumeration type which defines choices of faith tradition. More
@@ -34,18 +33,8 @@ class Profile(models.Model):
     # Each `Profile` keeps track of the faith tradition of the user. This will
     # be used so that users can filter the comments they see based on the 
     # faith tradition of the authors of the comments.
-    faith_tradition = models.CharField(choices=FaithTradition.choices)
-
-    # Error message when a wrong format entered.
-    phone_message = 'Phone number must be entered in the format: 05999999999' 
-
-    # The desired format for entering phone number.
-    phone_regex = RegexValidator(
-        regex=r'^(05)\d{9}$',
-        message=phone_message
-    )
+    faith_tradition = models.CharField(choices=FaithTradition.choices, max_length=10)
 
     # Each `Profile` contains an optional phone number field that is validated
     # against a regex.
-    phone = models.CharField(validators=[phone_regex], max_length=60,
-                             null=True, blank=True)
+    phone = models.CharField(validators=[validate_phone], max_length=60, null=True, blank=True)
