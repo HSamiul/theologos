@@ -19,7 +19,7 @@ class Profile(models.Model):
 
     # Each `Profile` may have a date of birth so that the commentaries they see
     # can be tailored to their age group.
-    dob = models.DateField(validators=[validate_dob], blank=True)
+    dob = models.DateField(validators=[validate_dob], null=True, blank=True)
 
     class FaithTradition(models.TextChoices):
         '''
