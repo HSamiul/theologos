@@ -16,10 +16,10 @@ class Post(models.Model):
    text = models.TextField()
 
    # The time this post was created
-   creation_time = models.DateTimeField()
+   creation_time = models.DateTimeField(auto_now_add=True)
 
    # The time this post was last updated
-   update_time = models.DateTimeField(null=True, blank=True)
+   update_time = models.DateTimeField(auto_now=True)
 
    def __str__(self):
        return f"Post by {self.author}: \"{self.text}\""
@@ -44,10 +44,10 @@ class Comment(models.Model):
     text = models.TextField()
 
     # The time this comment was created
-    creation_time = models.DateTimeField()
+    creation_time = models.DateTimeField(auto_now_add=True)
 
     # The time this comment was last updated
-    update_time = models.DateTimeField(null=True, blank=True)
+    update_time = models.DateTimeField(auto_now=True)
 
     # The post this comment is associated with
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
