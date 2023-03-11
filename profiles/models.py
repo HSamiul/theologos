@@ -13,9 +13,10 @@ class Profile(models.Model):
     # Each `Profile` has one `User` and each `User` has one `Profile`
     user = models.OneToOneField('accounts.User', on_delete=models.CASCADE)
 
+    # TODO: Figure out how to save images.
     # Each `Profile` may have a profile photo to display next to profile's
     # comments.
-    profile_photo = models.ImageField()
+    # profile_photo = models.ImageField(blank=True)
 
     # Each `Profile` may have a date of birth so that the commentaries they see
     # can be tailored to their age group.
