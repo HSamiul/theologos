@@ -1,5 +1,7 @@
 from django.db import models
 
+from .validators import validate_min_post_length, validate_min_comment_length
+
 class Post(models.Model):
    '''
    A user can create a `Post` on a Bible verse to share their commentary with
@@ -13,7 +15,7 @@ class Post(models.Model):
    title = models.CharField(max_length=255)
 
    # The text body of this post
-   text = models.TextField()
+   text = models.TextField(validators=[validate_min_post_length])
 
    # The time this post was created
    creation_time = models.DateTimeField(auto_now_add=True)
@@ -41,7 +43,7 @@ class Comment(models.Model):
     author = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
 
     # The text body of this comment
-    text = models.TextField()
+    text = models.TextField(validators=[validate_min_comment_length])
 
     # The time this comment was created
     creation_time = models.DateTimeField(auto_now_add=True)
