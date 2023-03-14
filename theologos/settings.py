@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'theologos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'theologosdb',
-        'USER': 'theologos_usr',
+        'NAME': 'theologos_db', # need to create this db on local computer
+        'USER': 'admin', # need to create this user on local computer
         'PASSWORD': 'theologos373',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': '', # uses localhost by default
+        'PORT': '5432', # port should be set up in Postgres.app
     }
 }
 
