@@ -1,0 +1,6 @@
+<h1>{{ book.getFullTitle }} {{ chapter.number }}</h1>
+<p>
+{% for verse in chapter.verse_set.all %}
+    <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+{% endfor %}
+</p>

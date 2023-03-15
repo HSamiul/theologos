@@ -41,6 +41,9 @@ class Book(models.Model):
     # The testament the book belongs to
     testament = models.CharField(max_length=3, choices=TESTAMENTS)
 
+    def getFullTitle(self):
+        return self.BookTitle(self.original_title).label
+
 
 class Chapter(models.Model):
 
