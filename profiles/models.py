@@ -46,4 +46,4 @@ class Profile(models.Model):
         This string is used when a `Profile` is printed in the console.
         '''
 
-        return self.user.username
+        return f'{self.user.username} - {self.faith_tradition}'
