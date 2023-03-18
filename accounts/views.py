@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 
+from profiles.forms import ProfileCreationForm
 from .forms import UserCreationForm
 
 def register(request):
@@ -17,6 +18,7 @@ def register(request):
   
     # otherwise, display a form to register a user
     else:
-        form = UserCreationForm()
+        userCreationForm = UserCreationForm()
+        profileCreationForm = ProfileCreationForm()
     
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': userCreationForm})
