@@ -38,3 +38,12 @@ class Profile(models.Model):
     # Each `Profile` contains an optional phone number field that is validated
     # against a regex.
     phone = models.CharField(validators=[validate_phone], max_length=60, null=True, blank=True)
+    
+    def __str__(self):
+        '''
+        Returns the profile as a string representation of this `Profile`.
+
+        This string is used when a `Profile` is printed in the console.
+        '''
+
+        return self.user.username
