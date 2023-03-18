@@ -20,5 +20,8 @@ def register(request):
     else:
         userCreationForm = UserCreationForm()
         profileCreationForm = ProfileCreationForm()
+        
+        context = {'userCreationForm' : userCreationForm,
+                   'profileCreationForm' : profileCreationForm}
     
-    return render(request, 'accounts/register.html', {'form': userCreationForm})
+    return render(request, 'accounts/register.html', context)
