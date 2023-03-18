@@ -13,18 +13,22 @@ def register(request):
         userCreationForm = UserCreationForm(request.POST)
         profileCreationForm = ProfileCreationForm(request.POST)
         
+        # Prevent short cicuiting by doing this outside of the if-clause below
+        # The entire form will be validated as a result
         userCreationFormValid = userCreationForm.is_valid()
         profileCreationFormValid = profileCreationForm.is_valid()
         
         if userCreationFormValid and profileCreationFormValid:
             user = userCreationForm.save()
-            profile = profileCreationForm.save(commit=False)
+            profile = profileCreationForm.save(commit=False) # generate user object without affecting database
             
-            profile.user = user
+            profile.user = user # create the profile's foreign key to user and save
             profile.save()
             
             messages.success(request, 'User and profile created successfully') # flash a success message
             return HttpResponse('Created user and profile!')
+        else:
+            return HttpResponse('Failed to create user and profile :(')
   
     # otherwise, display a form to register a user
     else:
@@ -34,4 +38,4 @@ def register(request):
         context = {'userCreationForm' : userCreationForm,
                    'profileCreationForm' : profileCreationForm}
     
-    return render(request, 'accounts/register.html', context)
+        return render(request, 'accounts/register.html', context)
