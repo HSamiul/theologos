@@ -9,12 +9,22 @@ from .forms import UserCreationForm
 def register(request):
     # if this URL was requested via a POST method, try creating a user
     if request.method == 'POST': 
-        form = UserCreationForm(request.POST) # use POST data to create a form
+        # use POST data to populate forms
+        userCreationForm = UserCreationForm(request.POST)
+        profileCreationForm = ProfileCreationForm(request.POST)
         
-        if form.is_valid():
-            form.save()  
-            messages.success(request, 'Account created successfully') # flash a success message
-            return HttpResponse('Created your account!')
+        userCreationFormValid = userCreationForm.is_valid()
+        profileCreationFormValid = profileCreationForm.is_valid()
+        
+        if userCreationFormValid and profileCreationFormValid:
+            user = userCreationForm.save()
+            profile = profileCreationForm.save(commit=False)
+            
+            profile.user = user
+            profile.save()
+            
+            messages.success(request, 'User and profile created successfully') # flash a success message
+            return HttpResponse('Created user and profile!')
   
     # otherwise, display a form to register a user
     else:
