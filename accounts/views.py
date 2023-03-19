@@ -13,8 +13,8 @@ def register(request):
         userCreationForm = UserCreationForm(request.POST)
         profileCreationForm = ProfileCreationForm(request.POST)
         
-        # Prevent short cicuiting by doing this outside of the if-clause below
-        # The entire form will be validated as a result
+        # prevent short cicuiting by doing this outside of the if-clause below
+        # the entire form will be validated as a result
         userCreationFormValid = userCreationForm.is_valid()
         profileCreationFormValid = profileCreationForm.is_valid()
         
@@ -30,7 +30,7 @@ def register(request):
         else:
             return HttpResponse('Failed to create user and profile :(')
   
-    # otherwise, display a form to register a user
+    # if this URL was requested via a GET method, display a form to register a user
     else:
         userCreationForm = UserCreationForm()
         profileCreationForm = ProfileCreationForm()
