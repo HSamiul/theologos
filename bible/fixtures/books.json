@@ -1,0 +1,10 @@
+[
+  {
+    "model": "bible.book",
+    "fields": {
+      "number": 28,
+      "original_title": "phil",
+      "testament": "n"
+    }
+  }
+]
