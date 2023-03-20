@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 
+# TODO determine if the methods have camel or snake case
 
 class Book(models.Model):
 
@@ -41,11 +42,16 @@ class Book(models.Model):
     # The testament the book belongs to
     testament = models.CharField(max_length=3, choices=TESTAMENTS)
 
-    def getFullTitle(self):
+    def get_title(self):
         return self.BookTitle(self.original_title).label
 
 
 class Chapter(models.Model):
+
+    # TODO double check that this runs upon chapter initialization
+    # def __init__(self):
+    #     super().__init__()
+    #     id = models.CharField(default=self.get_id(), primary_key=True)
 
     # The book the chapter belongs to
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -53,8 +59,14 @@ class Chapter(models.Model):
     # The chapter number (e.g. 012)
     number = models.IntegerField(validators=[MinLengthValidator(3), MaxLengthValidator(3)])
 
+    def get_id(self): # format: "<book_number>-<number>"
+        return f'{self.book.number}-{self.number}'
+
 
 class Verse(models.Model):
+
+    # TODO double check that this runs upon chapter initialization
+    # id = models.CharField(default=get_id(), primary_key=True)
 
     # The chapter the verse belongs to
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
@@ -67,3 +79,6 @@ class Verse(models.Model):
 
     # The language ID of the original text (e.g. 'en' for English)
     #original_lang_id = models.CharField(default='en', max_length=10)
+
+    def get_id(self): # format: "<book_number>-<chapter_number>-<number>"
+        return f'{self.chapter.get_id()}-{self.number}'
