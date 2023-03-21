@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'profiles',
     'commentary',
+    'bible',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -81,8 +82,12 @@ WSGI_APPLICATION = 'theologos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'theologos_db', # need to create this db on local computer
+        'USER': 'admin', # need to create this user on local computer
+        'PASSWORD': 'theologos373',
+        'HOST': '', # uses localhost by default
+        'PORT': '5432', # port should be set up in Postgres.app
     }
 }
 

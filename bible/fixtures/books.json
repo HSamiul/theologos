@@ -1,0 +1,34 @@
+[
+  {
+    "model": "bible.book",
+    "fields": {
+      "number": 1,
+      "original_title": "gen",
+      "testament": "old"
+    }
+  },
+  {
+    "model": "bible.book",
+    "fields": {
+      "number": 2,
+      "original_title": "ex",
+      "testament": "old"
+    }
+  },
+  {
+    "model": "bible.book",
+    "fields": {
+      "number": 3,
+      "original_title": "lev",
+      "testament": "old"
+    }
+  },
+  {
+    "model": "bible.book",
+    "fields": {
+      "number": 53,
+      "original_title": "phil",
+      "testament": "new"
+    }
+  }
+]
