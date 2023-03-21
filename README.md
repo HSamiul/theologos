@@ -14,6 +14,13 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+### Load initial data
+```
+python manage.py loaddata books
+python manage.py loaddata chapters
+python manage.py loaddata verses
+```
+
 ### Run Django development server
 ```
 python manage.py runserver
