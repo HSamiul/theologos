@@ -19,7 +19,7 @@ class Profile(models.Model):
 
     # Each `Profile` may have a date of birth so that the commentaries they see
     # can be tailored to their age group.
-    dob = models.DateField(validators=[validate_dob], null=True, blank=True)
+    dob = models.DateField(validators=[validate_dob], null=True, blank=True, verbose_name="Birthdate")
 
     class FaithTradition(models.TextChoices):
         '''
@@ -33,11 +33,11 @@ class Profile(models.Model):
     # Each `Profile` keeps track of the faith tradition of the user. This will
     # be used so that users can filter the comments they see based on the 
     # faith tradition of the authors of the comments.
-    faith_tradition = models.CharField(choices=FaithTradition.choices, max_length=10)
+    faith_tradition = models.CharField(choices=FaithTradition.choices, max_length=10, verbose_name="Faith Tradition")
 
     # Each `Profile` contains an optional phone number field that is validated
     # against a regex.
-    phone = models.CharField(validators=[validate_phone], max_length=60, null=True, blank=True)
+    phone = models.CharField(validators=[validate_phone], max_length=60, null=True, blank=True, verbose_name="Phone Number")
     
     def __str__(self):
         '''
