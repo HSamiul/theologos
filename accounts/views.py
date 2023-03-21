@@ -25,9 +25,15 @@ def register(request):
             profile.user = user # create the profile's foreign key to user and save
             profile.save()
             
-            messages.success(request, 'User and profile created successfully') # flash a success message
+            messages.success(request, 'Account created successfully') # flash a success message
             return HttpResponse('Created user and profile!')
         else:
+            for error in profileCreationForm.errors:
+                messages.error(request, profileCreationForm.errors[error])
+                return redirect(request.path)
+            for error in userCreationForm.errors:
+                messages.error(request, userCreationForm.errors[error])
+                return redirect(request.path)
             return HttpResponse('Failed to create user and profile :(')
   
     # if this URL was requested via a GET method, display a form to register a user
