@@ -3,6 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    # e.g. /bible/1/1/
-    path('<int:book_id>/<int:chapter_id>/', views.index, name='index'),
+    # e.g. /bible/gen/1/
+    path('<slug:book_id>/<int:chapter_num>/', views.index, name='index'),
 ]
