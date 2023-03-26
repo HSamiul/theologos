@@ -1,3 +1,5 @@
+from django.views.generic.base import TemplateView
+
 """theologos URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -21,5 +23,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('bible/', include('bible.urls')),
-    path('profiles/', include('profiles.urls'))
+    path('profiles/', include('profiles.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home')
 ]
