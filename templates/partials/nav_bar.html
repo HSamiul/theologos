@@ -1,7 +1,9 @@
 <nav>
-    <ul>
-        <li>bruh moment</li>
-        <li>sheeeeesh</li>
-        <li>yerrrrr</li>
-    </ul>
+    {% if user.is_authenticated %}
+    <span>Hello, {{ user.username }}</span>
+    <a href={% url 'logout' %}>Log out</a>
+    {% else %}
+    <span>You are not logged in</span>
+    <a href={% url 'login' %}>Log in</a>
+    {% endif %}
 </nav>

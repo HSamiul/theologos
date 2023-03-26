@@ -3,9 +3,5 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-    Hi {{  user.username }}!
-{% else %}
-    <p>You aren't logged in!</p>
-{% endif %}
+Welcome to Theologos!
 {% endblock %}
