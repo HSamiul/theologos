@@ -1,0 +1,28 @@
+<!-- TODO: make the left and right margins larger -->
+<!-- TODO: figure out why the navbar doesn't collapse into a hamburger menu when screen gets small -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href={% url 'home' %}>Theologos</a>
+
+    <div class="collapse navbar-collapse">
+        <div class="navbar-nav me-auto"> <!-- me-auto pushes account items to the right -->
+            <a class="nav-item nav-link" href={% url 'home' %}>Home</a>
+        </div>
+
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Hello, {{ user.username }}</a>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item disabled" href="#">Account</a> <!-- page not yet implemented -->
+                    <a class="dropdown-item" href={% url 'logout' %}>Log out</a>
+                </div>
+            </div>
+
+            {% else %}
+            <a class="nav-item nav-link" href={% url 'login' %}>Log in</a>
+            <a class="nav-item nav-link" href={% url 'register' %}>Register</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

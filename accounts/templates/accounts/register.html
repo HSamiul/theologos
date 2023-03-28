@@ -1,24 +1,22 @@
-<h1>Register</h1>
+{% extends 'base.html' %}
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+<title>{% block title %}Accout Registration{% endblock %}</title>
 
-<form method='POST'>
-    {% csrf_token %}
+{% block content %}
+<div class="container-lg my-5">
+    <h1>Account Registration</h1>
 
-    <table>
-        {{ userCreationForm.as_table }}
-        {{ profileCreationForm.as_table }}
+    {% include "../messages.html" %}
 
-        <tr>
-            <td>
-                <input type="submit" name="submit" value="Register" />
-            </td>
-        </tr>
-    </table>
-</form>
+    <div class="form-group">
+        <form method='POST'>
+            {% csrf_token %}
+            <table>
+                {{ userCreationForm.as_table }}
+                {{ profileCreationForm.as_table }}
+            </table>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
