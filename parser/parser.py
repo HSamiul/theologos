@@ -130,18 +130,16 @@ class Verse:
             reader = csv.DictReader(csv_file)
             prev_book = None
             prev_chap_num = None
-            number = 1
             for line in reader: # line is a dictionary
-                line["number"] = number
-
                 # reset verse number for new chapters (relies on CSV being written in order)
                 if line["chapter"] == prev_chap_num and line["book"] == prev_book:
+                    number += 1
+                else:
                     number = 1
                     prev_chap_num = line["chapter"]
                     prev_book = line["book"]
-                else:
-                    number += 1
-
+                line["number"] = number
+                print(line["book"], prev_book, line["chapter"], prev_chap_num, number)
 
                 v = Verse(line)
                 verses.append(v.getFixtureInstance())
