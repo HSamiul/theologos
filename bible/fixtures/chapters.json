@@ -2,22 +2,969 @@
   {
     "model": "bible.chapter",
     "fields": {
-      "number": 1,
-      "book": 1
+      "id": "gen-001",
+      "book": "gen",
+      "number": 1
     }
   },
   {
     "model": "bible.chapter",
     "fields": {
-      "number": 2,
-      "book": 1
+      "id": "gen-002",
+      "book": "gen",
+      "number": 2
     }
   },
   {
     "model": "bible.chapter",
     "fields": {
-      "number": 3,
-      "book": 2
+      "id": "gen-003",
+      "book": "gen",
+      "number": 3
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-004",
+      "book": "gen",
+      "number": 4
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-005",
+      "book": "gen",
+      "number": 5
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-006",
+      "book": "gen",
+      "number": 6
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-007",
+      "book": "gen",
+      "number": 7
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-008",
+      "book": "gen",
+      "number": 8
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-009",
+      "book": "gen",
+      "number": 9
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-010",
+      "book": "gen",
+      "number": 10
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-011",
+      "book": "gen",
+      "number": 11
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-012",
+      "book": "gen",
+      "number": 12
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-013",
+      "book": "gen",
+      "number": 13
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-014",
+      "book": "gen",
+      "number": 14
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-015",
+      "book": "gen",
+      "number": 15
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-016",
+      "book": "gen",
+      "number": 16
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-017",
+      "book": "gen",
+      "number": 17
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-018",
+      "book": "gen",
+      "number": 18
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-019",
+      "book": "gen",
+      "number": 19
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-020",
+      "book": "gen",
+      "number": 20
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-021",
+      "book": "gen",
+      "number": 21
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-022",
+      "book": "gen",
+      "number": 22
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-023",
+      "book": "gen",
+      "number": 23
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-024",
+      "book": "gen",
+      "number": 24
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-025",
+      "book": "gen",
+      "number": 25
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-026",
+      "book": "gen",
+      "number": 26
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-027",
+      "book": "gen",
+      "number": 27
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-028",
+      "book": "gen",
+      "number": 28
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-029",
+      "book": "gen",
+      "number": 29
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-030",
+      "book": "gen",
+      "number": 30
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-031",
+      "book": "gen",
+      "number": 31
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-032",
+      "book": "gen",
+      "number": 32
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-033",
+      "book": "gen",
+      "number": 33
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-034",
+      "book": "gen",
+      "number": 34
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-035",
+      "book": "gen",
+      "number": 35
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-036",
+      "book": "gen",
+      "number": 36
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-037",
+      "book": "gen",
+      "number": 37
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-038",
+      "book": "gen",
+      "number": 38
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-039",
+      "book": "gen",
+      "number": 39
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-040",
+      "book": "gen",
+      "number": 40
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-041",
+      "book": "gen",
+      "number": 41
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-042",
+      "book": "gen",
+      "number": 42
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-043",
+      "book": "gen",
+      "number": 43
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-044",
+      "book": "gen",
+      "number": 44
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-045",
+      "book": "gen",
+      "number": 45
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-046",
+      "book": "gen",
+      "number": 46
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-047",
+      "book": "gen",
+      "number": 47
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-048",
+      "book": "gen",
+      "number": 48
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-049",
+      "book": "gen",
+      "number": 49
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "gen-050",
+      "book": "gen",
+      "number": 50
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-001",
+      "book": "ex",
+      "number": 1
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-002",
+      "book": "ex",
+      "number": 2
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-003",
+      "book": "ex",
+      "number": 3
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-004",
+      "book": "ex",
+      "number": 4
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-005",
+      "book": "ex",
+      "number": 5
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-006",
+      "book": "ex",
+      "number": 6
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-007",
+      "book": "ex",
+      "number": 7
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-008",
+      "book": "ex",
+      "number": 8
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-009",
+      "book": "ex",
+      "number": 9
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-010",
+      "book": "ex",
+      "number": 10
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-011",
+      "book": "ex",
+      "number": 11
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-012",
+      "book": "ex",
+      "number": 12
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-013",
+      "book": "ex",
+      "number": 13
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-014",
+      "book": "ex",
+      "number": 14
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-015",
+      "book": "ex",
+      "number": 15
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-016",
+      "book": "ex",
+      "number": 16
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-017",
+      "book": "ex",
+      "number": 17
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-018",
+      "book": "ex",
+      "number": 18
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-019",
+      "book": "ex",
+      "number": 19
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-020",
+      "book": "ex",
+      "number": 20
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-021",
+      "book": "ex",
+      "number": 21
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-022",
+      "book": "ex",
+      "number": 22
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-023",
+      "book": "ex",
+      "number": 23
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-024",
+      "book": "ex",
+      "number": 24
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-025",
+      "book": "ex",
+      "number": 25
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-026",
+      "book": "ex",
+      "number": 26
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-027",
+      "book": "ex",
+      "number": 27
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-028",
+      "book": "ex",
+      "number": 28
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-029",
+      "book": "ex",
+      "number": 29
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-030",
+      "book": "ex",
+      "number": 30
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-031",
+      "book": "ex",
+      "number": 31
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-032",
+      "book": "ex",
+      "number": 32
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-033",
+      "book": "ex",
+      "number": 33
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-034",
+      "book": "ex",
+      "number": 34
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-035",
+      "book": "ex",
+      "number": 35
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-036",
+      "book": "ex",
+      "number": 36
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-037",
+      "book": "ex",
+      "number": 37
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-038",
+      "book": "ex",
+      "number": 38
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-039",
+      "book": "ex",
+      "number": 39
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "ex-040",
+      "book": "ex",
+      "number": 40
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-001",
+      "book": "lev",
+      "number": 1
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-002",
+      "book": "lev",
+      "number": 2
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-003",
+      "book": "lev",
+      "number": 3
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-004",
+      "book": "lev",
+      "number": 4
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-005",
+      "book": "lev",
+      "number": 5
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-006",
+      "book": "lev",
+      "number": 6
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-007",
+      "book": "lev",
+      "number": 7
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-008",
+      "book": "lev",
+      "number": 8
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-009",
+      "book": "lev",
+      "number": 9
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-010",
+      "book": "lev",
+      "number": 10
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-011",
+      "book": "lev",
+      "number": 11
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-012",
+      "book": "lev",
+      "number": 12
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-013",
+      "book": "lev",
+      "number": 13
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-014",
+      "book": "lev",
+      "number": 14
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-015",
+      "book": "lev",
+      "number": 15
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-016",
+      "book": "lev",
+      "number": 16
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-017",
+      "book": "lev",
+      "number": 17
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-018",
+      "book": "lev",
+      "number": 18
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-019",
+      "book": "lev",
+      "number": 19
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-020",
+      "book": "lev",
+      "number": 20
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-021",
+      "book": "lev",
+      "number": 21
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-022",
+      "book": "lev",
+      "number": 22
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-023",
+      "book": "lev",
+      "number": 23
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-024",
+      "book": "lev",
+      "number": 24
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-025",
+      "book": "lev",
+      "number": 25
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-026",
+      "book": "lev",
+      "number": 26
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "lev-027",
+      "book": "lev",
+      "number": 27
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "phil-001",
+      "book": "phil",
+      "number": 1
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "phil-002",
+      "book": "phil",
+      "number": 2
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "phil-003",
+      "book": "phil",
+      "number": 3
+    }
+  },
+  {
+    "model": "bible.chapter",
+    "fields": {
+      "id": "phil-004",
+      "book": "phil",
+      "number": 4
     }
   }
 ]

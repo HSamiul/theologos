@@ -2,33 +2,37 @@
   {
     "model": "bible.book",
     "fields": {
-      "number": 1,
-      "original_title": "gen",
-      "testament": "old"
+      "symbol": "gen",
+      "full_title": "Genesis",
+      "testament": "old",
+      "number": 1
     }
   },
   {
     "model": "bible.book",
     "fields": {
-      "number": 2,
-      "original_title": "ex",
-      "testament": "old"
+      "symbol": "ex",
+      "full_title": "Exodus",
+      "testament": "old",
+      "number": 2
     }
   },
   {
     "model": "bible.book",
     "fields": {
-      "number": 3,
-      "original_title": "lev",
-      "testament": "old"
+      "symbol": "lev",
+      "full_title": "Leviticus",
+      "testament": "old",
+      "number": 3
     }
   },
   {
     "model": "bible.book",
     "fields": {
-      "number": 53,
-      "original_title": "phil",
-      "testament": "new"
+      "symbol": "phil",
+      "full_title": "Philippians",
+      "testament": "new",
+      "number": 4
     }
   }
 ]
