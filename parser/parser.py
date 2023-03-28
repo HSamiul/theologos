@@ -2,26 +2,26 @@
 This Python script is separate from the rest of the Django app (i.e. it is not 
 required to run Theologos).
 
-Call the appropriate class' .createFixtureFromCsv() method to create a fixture for the Bible models.
+Call the appropriate class' `.createFixtureFromCsv()` method from the Python shell
+in order to create fixtures for the Bible models.
 
-For example, running
-`Book.createFixtureFromCsv("book.csv")`
-to create a new file called "../fixtures/books.json" that contains the fixture
+For example, run
+`Book.createFixtureFromCsv("data/books.csv")`
+to create a new file called "bible/fixtures/books.json" that contains the fixture.
 
-Note: This will overwrite any existing books.json file.
+Note: This would overwrite any existing content in the books.json file.
 '''
 
 import csv
 import json
 
-# from enum import Enum
+'''
+The Book class takes in a CSV with these columns: symbol, full_title, testament, length.
 
+The .createFixtureFromCsv() method will write the Chapter fixture in addition to
+the Book fixture, based on the 'length' field of each book.
+'''
 class Book:
-    
-    # class Testament(Enum):
-    #   OLD = 1
-    #   NEW = 2
-    
     def __init__(self, fields):
         self.length = int(fields["length"])
         fields.pop("length")
@@ -32,7 +32,7 @@ class Book:
         fixture["model"] = "bible.book"
         fixture["fields"] = self.fields
         return fixture
-    
+
     class Chapter:
         def __init__(self, bookSymbol, number):
             self.book = bookSymbol
@@ -87,6 +87,7 @@ class Book:
 
         with open("./bible/fixtures/chapters.json", "w") as out_file:
             out_file.write(chapters_json_object)
+
 
 class Verse:
     
