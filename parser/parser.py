@@ -32,7 +32,7 @@ class Book:
         fixture["model"] = "bible.book"
         fixture["fields"] = self.fields
         return fixture
-    
+
     class Chapter:
         def __init__(self, bookSymbol, number):
             self.book = bookSymbol
@@ -87,6 +87,7 @@ class Book:
 
         with open("./bible/fixtures/chapters.json", "w") as out_file:
             out_file.write(chapters_json_object)
+
 
 class Verse:
     
