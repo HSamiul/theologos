@@ -10,7 +10,7 @@
 
             <p>
             {% for verse in verses %}
-            <a href="{% url "index" book_id=book_id chapter_num=chapter_num %}">
+            <a href="{% url "index" book_id=book_id chapter_num=chapter_num verse_num=verse.number %}">
                 <sup>{{ verse.number }}</sup> {{ verse.original_text }}
             </a>
             {% endfor %}
@@ -19,8 +19,33 @@
 
         <div class="col-sm"> <!-- right half of page is commentary -->
             <h1>Commentary</h1>
-
-            <span>Select a verse to view commentary.</span>
+            <div class="container-lg my-5">
+                {% if verse_num %}
+                <h2>{{ verse.original_text }}</h2>
+            
+                {% for post in posts %}
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.text }}</p>
+                {% endfor %}
+            
+                {% if user.is_authenticated %}
+                <div class="form-group">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <table>
+                            {{ postCreationForm.as_table }}
+                        </table>
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                {% else %}
+                <span>Please sign in to add commentary</span> <!-- TODO: add link to login page -->
+                {% endif %}
+                {% else %}
+                <span>Select a verse to view commentary.</span>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
