@@ -3,10 +3,22 @@
 {% block title %} Bible View {% endblock %}
 
 {% block content %}
-<h1>{{ book.full_title }} {{ chapter_num }}</h1>
-<p>
-{% for verse in verses %}
-    <sup>{{ verse.number }}</sup> {{ verse.original_text }}
-{% endfor %}
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm"> <!-- left half of page is the bible -->
+            <h1>{{ book.full_title }} {{ chapter_num }}</h1>
+
+            <p>
+            {% for verse in verses %}
+                <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+            {% endfor %}
+            </p>
+        </div>
+        <div class="col-sm"> <!-- right half of page is commentary -->
+            <h1>Commentary</h1>
+
+            <span>Select a verse to view commentary.</span>
+        </div>
+    </div>
+</div>
 {% endblock %}
