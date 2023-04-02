@@ -10,7 +10,7 @@
 
             <p>
             {% for verse in verses %}
-            <a href="{{verse.number}}">
+            <a href="{% url "index" book_id=book_id chapter_num=chapter_num %}">
                 <sup>{{ verse.number }}</sup> {{ verse.original_text }}
             </a>
             {% endfor %}
