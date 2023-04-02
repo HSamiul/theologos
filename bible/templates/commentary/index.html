@@ -1,23 +1,49 @@
-<div class="container-lg my-5">
-    <h2>{{ verse.original_text }}</h2>
+{% extends "base.html" %}
 
-    {% for post in posts %}
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.text }}</p>
-    {% endfor %}
+{% block title %} Bible View {% endblock %}
 
-    {% if user.is_authenticated %}
-    <div class="form-group">
-        <form method="POST">
-            {% csrf_token %}
-            <table>
-                {{ postCreationForm.as_table }}
-            </table>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm text-start"> <!-- left half of page is the bible -->
+            <h1>{{ book.full_title }} {{ chapter_num }}</h1>
+
+            <p>
+            {% for verse in verses %}
+            <a href="{{verse.number}}">
+                <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+            </a>
+            {% endfor %}
+            </p>
+        </div>
+
+        <div class="col-sm"> <!-- right half of page is commentary -->
+            <h1>Commentary</h1>
+
+            <div class="container-lg my-5">
+                <h2>{{ verse.original_text }}</h2>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                {% for post in posts %}
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.text }}</p>
+                {% endfor %}
+            
+                {% if user.is_authenticated %}
+                <div class="form-group">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <table>
+                            {{ postCreationForm.as_table }}
+                        </table>
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                {% else %}
+                <span>Please sign in to add commentary</span> <!-- TODO: add link to login page -->
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% else %}
-    <span>Please sign in to add commentary</span> <!-- TODO: add link to login page -->
-    {% endif %}
 </div>
+{% endblock %}

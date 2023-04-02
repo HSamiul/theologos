@@ -14,7 +14,10 @@ def index(request, book_id, chapter_num): # TODO add version_id in the future
     return render(request, 'bible/index.html', {'book': book, 'chapter_num': chapter_num, 'verses': verses})
 
 def commentary(request, book_id, chapter_num, verse_num):    
+    book = get_object_or_404(Book, pk=book_id)
     chapter = get_object_or_404(Chapter, book=book_id, number=chapter_num)
+    verses = chapter.verse_set.order_by("id")
+    
     verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
     posts = verse.post_set.order_by('id')
     
@@ -48,6 +51,9 @@ def commentary(request, book_id, chapter_num, verse_num):
         postCreationForm = PostCreationForm()
     
         context = {
+            'book': book,
+            'chapter_num': chapter_num,
+            'verses': verses,
             'verse': verse,
             'posts': posts,
             'postCreationForm': postCreationForm
