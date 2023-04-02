@@ -7,17 +7,17 @@
     {% endfor %}
 
     {% if user.is_authenticated %}
-    You're signed in!
-    {% else %}
-    You're not signed in :|
-    {% endif %}
-
-    {% comment %} <div class="form-group">
+    <div class="form-group">
         <form method="POST">
             {% csrf_token %}
             <table>
-                {%  %}
+                {{ postCreationForm.as_table }}
             </table>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    </div> {% endcomment %}
+    </div>
+    {% else %}
+    <span>Please sign in to add commentary</span> <!-- TODO: add link to login page -->
+    {% endif %}
 </div>
