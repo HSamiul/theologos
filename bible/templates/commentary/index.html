@@ -1,6 +1,23 @@
-<h2>{{ verse.original_text }}</h2>
+<div class="container-lg my-5">
+    <h2>{{ verse.original_text }}</h2>
 
-{% for post in posts %}
-<h3>{{ post.title }}</h3>
-<p>{{ post.text }}</p>
-{% endfor %}
+    {% for post in posts %}
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.text }}</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+    You're signed in!
+    {% else %}
+    You're not signed in :|
+    {% endif %}
+
+    {% comment %} <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {%  %}
+            </table>
+        </form>
+    </div> {% endcomment %}
+</div>
