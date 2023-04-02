@@ -5,15 +5,18 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-sm"> <!-- left half of page is the bible -->
+        <div class="col-sm text-start"> <!-- left half of page is the bible -->
             <h1>{{ book.full_title }} {{ chapter_num }}</h1>
 
             <p>
             {% for verse in verses %}
+            <a href="{{verse.number}}">
                 <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+            </a>
             {% endfor %}
             </p>
         </div>
+
         <div class="col-sm"> <!-- right half of page is commentary -->
             <h1>Commentary</h1>
 
