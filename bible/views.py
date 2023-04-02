@@ -15,12 +15,12 @@ def commentary(request, book_id, chapter_num, verse_num):
     print(verse_num)
     chapter = get_object_or_404(Chapter, book=book_id, number=chapter_num)
     verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
-    # posts = get_object_or_404(Post, verse=verse_num)
+    posts = verse.post_set.order_by("id")
     
     
     context = {
         'verse': verse,
-        # 'posts': posts
+        'posts': posts
         }
     
     return render(request, 'commentary/index.html', context)

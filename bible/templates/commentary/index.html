@@ -1,2 +1,6 @@
-<p>bruh moment</p>
-<span>{{ verse.original_text }}</span>
+<h2>{{ verse.original_text }}</h2>
+
+{% for post in posts %}
+<h3>{{ post.title }}</h3>
+<p>{{ post.text }}</p>
+{% endfor %}
