@@ -1,6 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Bible View {% endblock %}
+
+{% block content %}
 <h1>{{ book.full_title }} {{ chapter_num }}</h1>
 <p>
 {% for verse in verses %}
     <sup>{{ verse.number }}</sup> {{ verse.original_text }}
 {% endfor %}
 </p>
+{% endblock %}
