@@ -1,30 +1,33 @@
 from django.db import models
-
+from bible.models import Verse
 from .validators import validate_min_post_length, validate_min_comment_length
 
 class Post(models.Model):
-   '''
-   A user can create a `Post` on a Bible verse to share their commentary with
-   others.
-   '''
+    '''
+    A user can create a `Post` on a Bible verse to share their commentary with
+    others.
+    '''
 
-   # The user who wrote this post
-   author = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
+    # The user who wrote this post
+    author = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
+   
+    # [FK] The verse the post belongs to
+    verse = models.ForeignKey(Verse, on_delete=models.CASCADE)
 
-   # The title of this post
-   title = models.CharField(max_length=255)
+    # The title of this post
+    title = models.CharField(max_length=255)
 
-   # The text body of this post
-   text = models.TextField(validators=[validate_min_post_length])
+    # The text body of this post
+    text = models.TextField(validators=[validate_min_post_length])
 
-   # The time this post was created
-   creation_time = models.DateTimeField(auto_now_add=True)
+    # The time this post was created
+    creation_time = models.DateTimeField(auto_now_add=True)
 
-   # The time this post was last updated
-   update_time = models.DateTimeField(auto_now=True)
+    # The time this post was last updated
+    update_time = models.DateTimeField(auto_now=True)
 
-   def __str__(self):
-       return f"Post by {self.author}: \"{self.text}\""
+    def __str__(self):
+        return f"Post by {self.author}: \"{self.text}\""
 
 class Comment(models.Model):
     '''
