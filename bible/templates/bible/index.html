@@ -1,6 +1,70 @@
-<h1>{{ book.full_title }} {{ chapter_num }}</h1>
-<p>
-{% for verse in verses %}
-    <sup>{{ verse.number }}</sup> {{ verse.original_text }}
-{% endfor %}
-</p>
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} {{ book.full_title }} {{ chapter.number }} {% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col me-5"> <!-- left half of page is the bible -->
+            <h2>{{ book.full_title }} {{ chapter.number }}</h2>
+
+            <p class="my-4">
+            {% for verse in verses %}
+            <!-- TODO: Move inline style to dedicated CSS file; add hover effect. -->
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
+               style="text-decoration: none; color: inherit;">
+                <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+            </a>
+            {% endfor %}
+            </p>
+        </div>
+
+        <div class="col ms-5"> <!-- right half of page is commentary -->
+        <h2>Commentary</h2>
+
+            {% if verse %} <!-- if the URL specifies a selected verse number, show commentary -->
+            <h5 class="my-4">{{ verse.original_text }}</h5>
+
+            <hr/>
+        
+            {% for post in posts %}
+
+            <h6>{{ post.title }}</h6>
+            <p>{{ post.text }}</p>
+
+            <div class="row">
+                <div class="col">
+                    <span>{{ post.author }}</span>
+                </div>
+
+                <div class="col text-end">
+                    <span>{{ post.creation_time }}</span>
+                </div>
+            </div>
+
+            <hr/>
+            {% endfor %}
+        
+            {% if user.is_authenticated %} <!-- If the user is signed in, let them comment  -->
+            <div class="form-group">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ postCreationForm|crispy }}
+
+                    <button type="submit" class="btn btn-success">Add commentary</button>
+                </form>
+            </div>
+
+            {% else %} <!-- If the user is not signed in, do not let them comment -->
+            <span>Please <a href={% url 'login' %}>sign in</a> to add commentary</span>
+            {% endif %}
+
+            {% else %} <!-- If a verse is not specified in the URL, do not show commentary -->
+            <span>Select a verse to view commentary.</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

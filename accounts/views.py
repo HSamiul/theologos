@@ -26,7 +26,7 @@ def register(request):
             profile.save()
             
             messages.success(request, 'Account created successfully') # flash a success message
-            return HttpResponse('Created user and profile!')
+            return HttpResponse('Created user and profile!') # TODO: Redirect to homepage instead
         else:
             for error in profileCreationForm.errors:
                 messages.error(request, profileCreationForm.errors[error])
@@ -34,7 +34,7 @@ def register(request):
             for error in userCreationForm.errors:
                 messages.error(request, userCreationForm.errors[error])
                 return redirect(request.path)
-            return HttpResponse('Failed to create user and profile :(')
+            return HttpResponse('Failed to create user and profile :(') # TODO: give a more useful redirect
   
     # if this URL was requested via a GET method, display a form to register a user
     else:
