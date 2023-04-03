@@ -58,7 +58,7 @@
             </div>
 
             {% else %} <!-- If the user is not signed in, do not let them comment -->
-            <span>Please <a href={% url 'login' %}>sign in</a> to add commentary</span> <!-- TODO: add link to login page -->
+            <span>Please <a href={% url 'login' %}>sign in</a> to add commentary</span>
             {% endif %}
 
             {% else %} <!-- If a verse is not specified in the URL, do not show commentary -->
