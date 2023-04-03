@@ -1,7 +1,5 @@
 from django.db import models
-from django.core.validators import MinLengthValidator, MaxLengthValidator
 
-from bible.models import Verse
 from .validators import validate_min_post_length, validate_min_comment_length
 
 class Post(models.Model):
@@ -21,7 +19,7 @@ class Post(models.Model):
     author = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
    
     # [FK] The verse the post belongs to
-    verse = models.ForeignKey(Verse, on_delete=models.CASCADE, null=True) # not sure if nullable should be allowed
+    verse = models.ForeignKey('bible.Verse', on_delete=models.CASCADE, null=True) # not sure if nullable should be allowed
 
     # The title of this post
     title = models.CharField(max_length=255)
