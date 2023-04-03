@@ -8,6 +8,14 @@ Follow instructions at https://docs.djangoproject.com/en/4.1/intro/contributing/
 source ~/.virtualenvs/djangodev/bin/activate
 ```
 
+### Install Dependencies ###
+```
+pip install Django
+pip install psycopg2
+pip install django-crispy-forms
+pip install crispy-bootstrap5
+```
+
 ### Create and apply migrations
 ```
 python manage.py makemigrations
