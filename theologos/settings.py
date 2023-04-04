@@ -44,7 +44,12 @@ INSTALLED_APPS = [
     'profiles',
     'commentary',
     'bible',
+    
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 AUTH_USER_MODEL = 'accounts.User'
 
