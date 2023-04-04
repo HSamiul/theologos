@@ -6,9 +6,8 @@
 
 {% block content %}
 <div class="container my-5">
-    <div class="row">
-        <div class="col me-5"> <!-- left half of page is the bible -->
-            <h2>{{ book.full_title }} {{ chapter.number }}</h2>
+    <div class="row" style="overflow-y: hidden">
+        <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
 
             <p class="my-4">
             {% for verse in verses %}
@@ -21,9 +20,8 @@
             </p>
         </div>
 
-        <div class="col ms-5"> <!-- right half of page is commentary -->
-        <h2>Commentary</h2>
-
+        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
+        <h2 style="padding-top: 50px;">Commentary</h2>
             {% if verse %} <!-- if the URL specifies a selected verse number, show commentary -->
             <h5 class="my-4">{{ verse.original_text }}</h5>
 
