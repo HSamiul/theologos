@@ -4,21 +4,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Book, Chapter, Verse
 from commentary.forms import PostCreationForm
 
-def index(request, book_symbol, chapter_num, verse_num=None): # TODO add version_id in the future
-    book = get_object_or_404(Book, pk=book_symbol)
-    chapter = get_object_or_404(Chapter, book=book, number=chapter_num)
-    verses = chapter.verse_set.order_by("id")
-    
-    if not verse_num: # the user is just viewing the chapter
+def index(request, book_symbol=None, chapter_num=None, verse_num=None): # TODO add version_id in the future
+    books = Book.objects.all()
+
+    if not book_symbol and not chapter_num and not verse_num: # the user is reading the Bible from the top
         context = {
-            'book' : book, 
-            'chapter' : chapter,
-            'verses': verses
+            'books' : books,
             }
         
         return render(request, 'bible/index.html', context)
-        
+    
     else: # the user is viewing OR submitting commentary for a specific verse
+        book = get_object_or_404(Book, pk=book_symbol)
+        chapter = get_object_or_404(Chapter, book=book, number=chapter_num)
+        verses = chapter.verse_set.order_by("id")
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
         posts = verse.post_set.order_by('creation_time')
         
@@ -26,6 +25,7 @@ def index(request, book_symbol, chapter_num, verse_num=None): # TODO add version
             postCreationForm = PostCreationForm()
         
             context = {
+                'books' : books,
                 'book' : book,
                 'chapter' : chapter,
                 'verses': verses,
