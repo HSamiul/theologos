@@ -4,9 +4,66 @@
     <a class="navbar-brand" href={% url 'home' %}>Theologos</a>
 
     <div class="collapse navbar-collapse">
+
+        <!-- Bible navigation menu -->
+        {% if "bible" in request.path %}
+
+        <div class="navbar-nav"> <!-- me-auto pushes account items to the right -->
+            <a class="nav-item nav-link" href={% url 'home' %}>Home</a>
+        </div>
+
+        <div class="dropdown me-auto">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-auto-close="outside" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Bible
+            </a>
+            <ul class="dropdown-menu">
+                {% for book in books %}
+                    <li class="dropend">
+                        <a class="dropdown-item dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown">{{ book.full_title }}</a>
+                        <ul class="dropdown-menu">
+                            {% for chapter in book.chapter_set.all %}
+                            <li>
+                                <a class="dropdown-item dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="#">{{ book.full_title }} {{ chapter.number }}</a>
+                                <ul class="dropdown-menu">
+                                    {% for verse in chapter.verse_set.all %}
+                                        <li>
+                                            <a class="dropdown-item"
+                                                id="nav-{{book.symbol}}-{{chapter.number}}-{{verse.number}}"
+                                                onclick="console.log(this.id)">
+                                                {{ book.full_title }} {{ chapter.number }}:{{ verse.number }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <script>
+            // Make verses in Bible navigation clickable
+            {% for book in books %}
+                {% for chapter in book.chapter_set.all %}
+                    {% for verse in chapter.verse_set.all %}
+                        document.getElementById("nav-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").addEventListener('click', function(e) {
+                            e.preventDefault();
+                            document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").scrollIntoView({behavior: 'smooth'});
+                            document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").click();
+                        });
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </script>
+
+        {% else %}
+
         <div class="navbar-nav me-auto"> <!-- me-auto pushes account items to the right -->
             <a class="nav-item nav-link" href={% url 'home' %}>Home</a>
         </div>
+
+        {% endif %}
 
         <div class="navbar-nav">
             {% if user.is_authenticated %}

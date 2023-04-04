@@ -72,4 +72,11 @@
         </div>
     </div>
 </div>
+<script>
+    // Scroll to selected verse (to counteract reloading the page to the top)
+    var bookSymbol = "{{ book.symbol }}";
+    var chapterNum = "{{ chapter.number }}";
+    var verseNum = "{{ verse.number }}"
+    document.getElementById('verse-' + bookSymbol + '-' + chapterNum + '-' + verseNum).scrollIntoView({behavior: 'smooth'});
+</script>
 {% endblock %}
