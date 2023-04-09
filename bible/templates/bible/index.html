@@ -30,11 +30,14 @@
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
         <h2 style="padding-top: 50px;">Commentary</h2>
             {% if post %}
-            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">Back</a>
-            <h5>{{ post.title }}</h5>
-            <p>{{ post.creation_time }}</p>
-            <p>{{ post.author }}</p>
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                Back to posts about {{book.full_title}} {{chapter.number}}:{{verse.number}}
+            </a>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.author }} | {{ post.creation_time }}</p>
             <p>{{ post.text }}</p>
+
+            <!-- TODO: add post replies and reply form here -->
 
             {% elif verse %} <!-- if the URL specifies a selected verse number, show commentary -->
             <h5 class="my-4">{{ verse.original_text }}</h5>
