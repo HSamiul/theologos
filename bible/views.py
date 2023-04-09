@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Book, Chapter, Verse
 from commentary.forms import PostCreationForm
+from commentary.models import Post
 
 from django.views import View
 
@@ -14,9 +15,10 @@ class BibleCommentaryView(View):
         chapter_num = kwargs.get('chapter_num', None)
         verse_num = kwargs.get('verse_num', None)
         # TODO add version_id in the future
+        post_id = kwargs.get('post_id', None)
         
         # the user is reading the Bible from the top
-        if not book_symbol and not chapter_num and not verse_num:
+        if not book_symbol and not chapter_num and not verse_num and not post_id:
             context = {
                 'books' : self.books,
             }
@@ -27,19 +29,34 @@ class BibleCommentaryView(View):
         chapter = get_object_or_404(Chapter, book=book, number=chapter_num)
         verses = chapter.verse_set.order_by("id")
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
-        posts = verse.post_set.order_by('creation_time')
-        postCreationForm = PostCreationForm()
         
+        if not post_id:
+            posts = verse.post_set.order_by('creation_time')
+            postCreationForm = PostCreationForm()
+            
+            context = {
+                'books' : self.books,
+                'book' : book,
+                'chapter' : chapter,
+                'verses': verses,
+                'verse': verse, # specific verse being viewed
+                'posts': posts, # posts for that verse
+                'postCreationForm': postCreationForm # form to add commentary to that verse
+            }
+            
+            return render(request, 'bible/index.html', context)
+        
+        # the user is viewing a post detail view
+        post = get_object_or_404(Post, pk=post_id)
         context = {
             'books' : self.books,
-            'book' : book,
-            'chapter' : chapter,
-            'verses': verses,
-            'verse': verse, # specific verse being viewed
-            'posts': posts, # posts for that verse
-            'postCreationForm': postCreationForm # form to add commentary to that verse
+                'book' : book,
+                'chapter' : chapter,
+                'verses': verses,
+                'verse': verse, # specific verse being viewed
+                'post' : post
         }
-        
+
         return render(request, 'bible/index.html', context)
 
     def post(self, request, *args, **kwargs):

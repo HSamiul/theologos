@@ -29,7 +29,14 @@
 
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
         <h2 style="padding-top: 50px;">Commentary</h2>
-            {% if verse %} <!-- if the URL specifies a selected verse number, show commentary -->
+            {% if post %}
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">Back</a>
+            <h5>{{ post.title }}</h5>
+            <p>{{ post.creation_time }}</p>
+            <p>{{ post.author }}</p>
+            <p>{{ post.text }}</p>
+
+            {% elif verse %} <!-- if the URL specifies a selected verse number, show commentary -->
             <h5 class="my-4">{{ verse.original_text }}</h5>
 
             <hr/>
@@ -38,6 +45,7 @@
 
             <h6>{{ post.title }}</h6>
             <p>{{ post.text }}</p>
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
 
             <div class="row">
                 <div class="col">
