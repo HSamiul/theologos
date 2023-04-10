@@ -6,7 +6,7 @@ from .models import Post, Comment, Vote
 class CommentTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='testuser', password='testpass')
-        self.profile = Profile.objects.create(user=User.objects.get(id=1), faith_tradition='PENT')
+        self.profile = Profile.objects.create(user=self.user, faith_tradition='PENT')
         self.post = Post.objects.create(author=self.profile, title='Test Post', text='Test post content')
         self.comment = Comment.objects.create(author=self.profile, text='Test comment', post=self.post)
 
@@ -14,6 +14,7 @@ class CommentTestCase(TestCase):
         child_comment = Comment.objects.create(author=self.profile, text='Test child comment', post=self.post)
         self.comment.add_child_comment(child_comment)
         self.assertEqual(child_comment.parent_comment, self.comment)
+        self.assertEqual(len(self.post.get_comments()), 2)
 
     def test_get_child_comments(self):
         child_comment_1 = Comment.objects.create(author=self.profile, text='Test child comment 1', post=self.post)
@@ -23,11 +24,12 @@ class CommentTestCase(TestCase):
         child_comments = self.comment.get_child_comments()
         self.assertIn(child_comment_1, child_comments)
         self.assertIn(child_comment_2, child_comments)
+        self.assertEqual(len(self.post.get_comments()), 3)
 
 class VoteTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='testuser', password='testpass')
-        self.profile = Profile.objects.create(user=User.objects.get(id=1), faith_tradition='PENT')
+        self.profile = Profile.objects.create(user=self.user, faith_tradition='PENT')
         self.post = Post.objects.create(author=self.profile, title='Test Post', text='Test post content')
         self.comment = Comment.objects.create(author=self.profile, text='Test comment', post=self.post)
 
