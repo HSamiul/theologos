@@ -37,7 +37,14 @@
             <p>{{ post.author }} | {{ post.creation_time }}</p>
             <p>{{ post.text }}</p>
 
-            <!-- TODO: add post replies and reply form here -->
+            <hr/>
+            <h5>{{ post.get_comments.count }} comments</h5>
+
+            {% for comment in post.get_comments %}
+                <!-- TODO: render a comment -->
+            {% endfor %}
+
+            <!-- TODO: add comment form -->
 
             {% elif verse %} <!-- if the URL specifies a selected verse number, show commentary -->
             <h5 class="my-4">{{ verse.original_text }}</h5>
