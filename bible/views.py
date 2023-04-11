@@ -32,7 +32,7 @@ class BibleCommentaryView(View):
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
         
         if not post_id:
-            post_filter = PostFilter(request.GET, queryset=Post.objects.all())
+            post_filter = PostFilter(request.GET, queryset=verse.post_set)
             postCreationForm = PostCreationForm()
             
             context = {
@@ -41,7 +41,7 @@ class BibleCommentaryView(View):
                 'chapter' : chapter,
                 'verses': verses,
                 'verse': verse, # specific verse being viewed
-                'posts': post_filter.qs, # filtered posts for that verse
+                'posts': post_filter.qs.order_by('creation_time'), # filtered posts for that verse
                 'postCreationForm': postCreationForm, # form to add commentary to that verse
                 'postFilterForm': post_filter.form # form to filter posts
             }
