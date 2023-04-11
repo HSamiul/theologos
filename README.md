@@ -14,6 +14,11 @@ pip install Django
 pip install psycopg2
 pip install django-crispy-forms
 pip install crispy-bootstrap5
+pip install django-filter
+```
+You may need to additionally run
+```
+pip install --upgrade django-filter
 ```
 
 ### Create and apply migrations
