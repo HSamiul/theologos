@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Book, Chapter, Verse
 from commentary.forms import PostCreationForm
 from commentary.models import Post
+from commentary.filters import PostFilter
 
 from django.views import View
 
@@ -31,7 +32,7 @@ class BibleCommentaryView(View):
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
         
         if not post_id:
-            posts = verse.post_set.order_by('creation_time')
+            post_filter = PostFilter(request.GET, queryset=Post.objects.all())
             postCreationForm = PostCreationForm()
             
             context = {
@@ -40,8 +41,9 @@ class BibleCommentaryView(View):
                 'chapter' : chapter,
                 'verses': verses,
                 'verse': verse, # specific verse being viewed
-                'posts': posts, # posts for that verse
-                'postCreationForm': postCreationForm # form to add commentary to that verse
+                'posts': post_filter.qs, # filtered posts for that verse
+                'postCreationForm': postCreationForm, # form to add commentary to that verse
+                'postFilterForm': post_filter.form # form to filter posts
             }
             
             return render(request, 'bible/index.html', context)
