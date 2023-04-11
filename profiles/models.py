@@ -2,6 +2,15 @@ from django.db import models
 
 from .validators import validate_dob, validate_phone
 
+class FaithTradition(models.TextChoices):
+    '''
+    An enumeration type which defines choices of faith tradition. More
+    faith traditions may be added in the future.
+    '''
+    BAPTIST = 'BAPT', 'Baptist'
+    PENTECOSTAL = 'PENT', 'Pentecostal'
+    AGNOSTIC = 'AGN', 'Agnostic'
+
 class Profile(models.Model):
     '''
     Extend the `User` model using a one-to-one association to this `Profile`
@@ -20,15 +29,6 @@ class Profile(models.Model):
     # Each `Profile` may have a date of birth so that the commentaries they see
     # can be tailored to their age group.
     dob = models.DateField(validators=[validate_dob], null=True, blank=True, verbose_name="Birthdate")
-
-    class FaithTradition(models.TextChoices):
-        '''
-        An enumeration type which defines choices of faith tradition. More
-        faith traditions may be added in the future.
-        '''
-        BAPTIST = 'BAPT', 'Baptist'
-        PENTECOSTAL = 'PENT', 'Pentecostal'
-        AGNOSTIC = 'AGN', 'Agnostic'
     
     # Each `Profile` keeps track of the faith tradition of the user. This will
     # be used so that users can filter the comments they see based on the 
