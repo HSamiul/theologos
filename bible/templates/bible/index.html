@@ -50,6 +50,22 @@
             <h5 class="my-4">{{ verse.original_text }}</h5>
 
             <hr/>
+
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter Posts
+                </button>
+                <div class="dropdown-menu col-md-auto" aria-labelledby="dropdownMenuButton">
+                    <div class="container">
+                        <form method="GET" action="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                            {{ postFilterForm.as_p }}
+                            <input type="submit" value="Submit" class="btn btn-primary"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
         
             {% for post in posts %}
 
