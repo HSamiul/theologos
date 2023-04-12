@@ -13,7 +13,7 @@
             <p class="my-4">
             {% for verse in verses %}
             <!-- TODO: Move inline style to dedicated CSS file; add hover effect. -->
-            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
+            <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
                style="text-decoration: none; color: inherit;">
                 <sup>{{ verse.number }}</sup> {{ verse.original_text }}
             </a>
@@ -44,6 +44,24 @@
                 </div>
             </div>
 
+            {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
+            <div class="row">
+                <div class="col">
+                    <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+                    </form>
+                </div>
+
+                <div class="col text-end">
+                    <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
             <hr/>
             {% endfor %}
         
@@ -53,12 +71,12 @@
                     {% csrf_token %}
                     {{ postCreationForm|crispy }}
 
-                    <button type="submit" class="btn btn-success">Add commentary</button>
+                    <button type="submit" class="btn btn-success">Post</button>
                 </form>
             </div>
 
             {% else %} <!-- If the user is not signed in, do not let them comment -->
-            <span>Please <a href={% url 'login' %}>sign in</a> to add commentary</span>
+            <span>Please <a href={% url 'login' %}>sign in</a> to add a comment</span>
             {% endif %}
 
             {% else %} <!-- If a verse is not specified in the URL, do not show commentary -->
