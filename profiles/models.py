@@ -46,6 +46,6 @@ class Profile(models.Model):
         This string is used when a `Profile` is printed in the console.
         '''
 
-        faith_tradition = Profile.FaithTradition(self.faith_tradition).label
+        faith_tradition = FaithTradition(self.faith_tradition).label
 
         return f'{self.user.username} [{faith_tradition}]'
