@@ -6,33 +6,72 @@
 
 {% block content %}
 <div class="container my-5">
-    <div class="row">
-        <div class="col me-5"> <!-- left half of page is the bible -->
-            <h2>{{ book.full_title }} {{ chapter.number }}</h2>
+    <div class="row" style="overflow-y: hidden">
+        <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
 
-            <p class="my-4">
-            {% for verse in verses %}
-            <!-- TODO: Move inline style to dedicated CSS file; add hover effect. -->
-            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
-               style="text-decoration: none; color: inherit;">
-                <sup>{{ verse.number }}</sup> {{ verse.original_text }}
-            </a>
+            {% for book in books %}
+            <h1 style="padding-top: 50px;">{{ book.full_title }}</h1>
+                {% for chapter in book.chapter_set.all %}
+                    <h2>{{ chapter.number }}</h2>
+                    <p>
+                    {% for verse in chapter.verse_set.all %}
+                        <!-- Jump to the desired verse with a similar url to /bible/#phil-1-1 -->
+                        <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
+                            id="verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}"
+                            style="text-decoration: none; color: inherit; scroll-margin: 30px;">
+                            <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+                        </a>
+                    {% endfor %}
+                    </p>
+                {% endfor %}
             {% endfor %}
-            </p>
         </div>
 
-        <div class="col ms-5"> <!-- right half of page is commentary -->
-        <h2>Commentary</h2>
+        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
+        <h2 style="padding-top: 50px;">Commentary</h2>
+            {% if post %}
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                Back to posts about {{book.full_title}} {{chapter.number}}:{{verse.number}}
+            </a>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.author }} | {{ post.creation_time }}</p>
+            <p>{{ post.text }}</p>
 
-            {% if verse %} <!-- if the URL specifies a selected verse number, show commentary -->
+            <hr/>
+            <h5>{{ post.get_comments.count }} comments</h5>
+
+            {% for comment in post.get_comments %}
+                <!-- TODO: render a comment -->
+            {% endfor %}
+
+            <!-- TODO: add comment form -->
+
+            {% elif verse %} <!-- if the URL specifies a selected verse number, show commentary -->
             <h5 class="my-4">{{ verse.original_text }}</h5>
 
             <hr/>
+
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter Posts
+                </button>
+                <div class="dropdown-menu col-md-auto" id="post-filter" aria-labelledby="dropdownMenuButton">
+                    <div class="container">
+                        <form method="GET" action="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                            {{ postFilterForm.as_p }}
+                            <input type="submit" value="Submit" class="btn btn-primary"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
         
             {% for post in posts %}
 
             <h6>{{ post.title }}</h6>
             <p>{{ post.text }}</p>
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
 
             <div class="row">
                 <div class="col">
@@ -67,4 +106,16 @@
         </div>
     </div>
 </div>
+<script>
+    // Scroll to selected verse (to counteract reloading the page to the top)
+    var bookSymbol = "{{ book.symbol }}";
+    var chapterNum = "{{ chapter.number }}";
+    var verseNum = "{{ verse.number }}"
+    document.getElementById('verse-' + bookSymbol + '-' + chapterNum + '-' + verseNum).scrollIntoView({behavior: 'smooth'});
+
+    // Stop filter dropdown from closing when clicking inside
+    document.getElementById('post-filter').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+</script>
 {% endblock %}
