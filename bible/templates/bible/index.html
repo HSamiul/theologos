@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} Bible | {{ book.full_title }} {{ chapter.number }}:{{verse.number}} {% endblock %}
+{% block title %} Bible | {{ verse }} {% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
-        <h2 style="padding-top: 50px;">Commentary</h2>
+        <h2 style="padding-top: 50px;">{{ verse }}</h2>
             {% if post %}
             <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
                 Back to posts about {{ verse }}
