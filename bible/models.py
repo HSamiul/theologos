@@ -43,6 +43,9 @@ class Chapter(models.Model):
 
     def get_id(self): # format: "<book_symbol>-<number>"
         return f'{self.book.symbol}-{self.number}'
+    
+    def __str__(self):
+        return f'{self.book.full_title} {self.number}'
 
 
 class Verse(models.Model):
@@ -66,3 +69,6 @@ class Verse(models.Model):
 
     def get_id(self): # format: "<book_symbol>-<chapter_number>-<number>"
         return f'{self.chapter.get_id()}-{self.number}'
+    
+    def __str__(self):
+        return f'{self.chapter}:{self.number}'
