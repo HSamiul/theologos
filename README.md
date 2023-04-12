@@ -11,6 +11,7 @@ source ~/.virtualenvs/djangodev/bin/activate
 ### Install Dependencies ###
 ```
 pip install Django
+pip install psycopg
 pip install psycopg2
 pip install django-crispy-forms
 pip install crispy-bootstrap5
