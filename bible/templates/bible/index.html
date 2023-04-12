@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} {{ book.full_title }} {{ chapter.number }} {% endblock %}
+{% block title %} Bible | {{ book.full_title }} {{ chapter.number }}:{{verse.number}} {% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -17,7 +17,7 @@
                     {% for verse in chapter.verse_set.all %}
                         <!-- Jump to the desired verse with a similar url to /bible/#phil-1-1 -->
                         <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
-                            id="verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}"
+                            id="verse-{{ verse.get_id }}"
                             style="text-decoration: none; color: inherit; scroll-margin: 30px;">
                             <sup>{{ verse.number }}</sup> {{ verse.original_text }}
                         </a>
@@ -31,7 +31,7 @@
         <h2 style="padding-top: 50px;">Commentary</h2>
             {% if post %}
             <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
-                Back to posts about {{book.full_title}} {{chapter.number}}:{{verse.number}}
+                Back to posts about {{ verse }}
             </a>
             <h2>{{ post.title }}</h2>
             <p>{{ post.author }} | {{ post.creation_time }}</p>
@@ -126,10 +126,7 @@
 </div>
 <script>
     // Scroll to selected verse (to counteract reloading the page to the top)
-    var bookSymbol = "{{ book.symbol }}";
-    var chapterNum = "{{ chapter.number }}";
-    var verseNum = "{{ verse.number }}"
-    document.getElementById('verse-' + bookSymbol + '-' + chapterNum + '-' + verseNum).scrollIntoView({behavior: 'smooth'});
+    document.getElementById('verse-' + '{{ verse.get_id }}').scrollIntoView({behavior: 'smooth'});
 
     // Stop filter dropdown from closing when clicking inside
     document.getElementById('post-filter').addEventListener('click', function(e) {
