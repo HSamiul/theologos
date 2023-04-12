@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name = 'bible'
+
 urlpatterns = [
-    # e.g. /bible/gen/1/
+    # e.g. /bible/gen/1/ or /bible/gen/1/1/
     path('<slug:book_symbol>/<int:chapter_num>/', views.index, name='index'), # serves as URL for many possible pages
     path('<slug:book_symbol>/<int:chapter_num>/<int:verse_num>/', views.index, name='index')
 ]
