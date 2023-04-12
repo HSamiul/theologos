@@ -29,15 +29,49 @@
 
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
         <h2 style="padding-top: 50px;">Commentary</h2>
-            {% if verse %} <!-- if the URL specifies a selected verse number, show commentary -->
+            {% if post %}
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                Back to posts about {{book.full_title}} {{chapter.number}}:{{verse.number}}
+            </a>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.author }} | {{ post.creation_time }}</p>
+            <p>{{ post.text }}</p>
+
+            <hr/>
+            <h5>{{ post.get_comments.count }} comments</h5>
+
+            {% for comment in post.get_comments %}
+                <!-- TODO: render a comment -->
+            {% endfor %}
+
+            <!-- TODO: add comment form -->
+
+            {% elif verse %} <!-- if the URL specifies a selected verse number, show commentary -->
             <h5 class="my-4">{{ verse.original_text }}</h5>
 
             <hr/>
+
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter Posts
+                </button>
+                <div class="dropdown-menu col-md-auto" id="post-filter" aria-labelledby="dropdownMenuButton">
+                    <div class="container">
+                        <form method="GET" action="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                            {{ postFilterForm.as_p }}
+                            <input type="submit" value="Submit" class="btn btn-primary"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <br>
         
             {% for post in posts %}
 
             <h6>{{ post.title }}</h6>
             <p>{{ post.text }}</p>
+            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
 
             <div class="row">
                 <div class="col">
@@ -78,5 +112,10 @@
     var chapterNum = "{{ chapter.number }}";
     var verseNum = "{{ verse.number }}"
     document.getElementById('verse-' + bookSymbol + '-' + chapterNum + '-' + verseNum).scrollIntoView({behavior: 'smooth'});
+
+    // Stop filter dropdown from closing when clicking inside
+    document.getElementById('post-filter').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
 </script>
 {% endblock %}

@@ -36,6 +36,12 @@ class Post(models.Model):
     # def get_id(self): # format: "<book_symbol>-<chapter_number>-<verse_number>-<number>"
     #     return f'{self.verse.get_id()}-{self.number}'
 
+    def get_comments(self):
+        '''
+        Retrieve all comments of this post.
+        '''
+        return Comment.objects.filter(post=self)
+
     def __str__(self):
         return f"Post by {self.author}: \"{self.text}\""
 
