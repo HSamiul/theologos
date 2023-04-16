@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} {{ book.full_title }} {{ chapter.number }} {% endblock %}
+{% block title %} Bible | {{ verse }} {% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -16,8 +16,8 @@
                     <p>
                     {% for verse in chapter.verse_set.all %}
                         <!-- Jump to the desired verse with a similar url to /bible/#phil-1-1 -->
-                        <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
-                            id="verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}"
+                        <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
+                            id="verse-{{ verse.get_id }}"
                             style="text-decoration: none; color: inherit; scroll-margin: 30px;">
                             <sup>{{ verse.number }}</sup> {{ verse.original_text }}
                         </a>
@@ -28,10 +28,10 @@
         </div>
 
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
-        <h2 style="padding-top: 50px;">Commentary</h2>
+        <h2 style="padding-top: 50px;">{{ verse }}</h2>
             {% if post %}
-            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
-                Back to posts about {{book.full_title}} {{chapter.number}}:{{verse.number}}
+            <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                Back to posts about {{ verse }}
             </a>
             <h2>{{ post.title }}</h2>
             <p>{{ post.author }} | {{ post.creation_time }}</p>
@@ -57,7 +57,7 @@
                 </button>
                 <div class="dropdown-menu col-md-auto" id="post-filter" aria-labelledby="dropdownMenuButton">
                     <div class="container">
-                        <form method="GET" action="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
+                        <form method="GET" action="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}">
                             {{ postFilterForm.as_p }}
                             <input type="submit" value="Submit" class="btn btn-primary"/>
                         </form>
@@ -71,7 +71,7 @@
 
             <h6>{{ post.title }}</h6>
             <p>{{ post.text }}</p>
-            <a href="{% url "index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
+            <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
 
             <div class="row">
                 <div class="col">
@@ -83,6 +83,24 @@
                 </div>
             </div>
 
+            {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
+            <div class="row">
+                <div class="col">
+                    <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+                    </form>
+                </div>
+
+                <div class="col text-end">
+                    <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
             <hr/>
             {% endfor %}
         
@@ -92,12 +110,12 @@
                     {% csrf_token %}
                     {{ postCreationForm|crispy }}
 
-                    <button type="submit" class="btn btn-success">Add commentary</button>
+                    <button type="submit" class="btn btn-success">Post</button>
                 </form>
             </div>
 
             {% else %} <!-- If the user is not signed in, do not let them comment -->
-            <span>Please <a href={% url 'login' %}>sign in</a> to add commentary</span>
+            <span>Please <a href={% url 'login' %}>sign in</a> to add a comment</span>
             {% endif %}
 
             {% else %} <!-- If a verse is not specified in the URL, do not show commentary -->
@@ -108,10 +126,7 @@
 </div>
 <script>
     // Scroll to selected verse (to counteract reloading the page to the top)
-    var bookSymbol = "{{ book.symbol }}";
-    var chapterNum = "{{ chapter.number }}";
-    var verseNum = "{{ verse.number }}"
-    document.getElementById('verse-' + bookSymbol + '-' + chapterNum + '-' + verseNum).scrollIntoView({behavior: 'smooth'});
+    document.getElementById('verse-' + '{{ verse.get_id }}').scrollIntoView({behavior: 'smooth'});
 
     // Stop filter dropdown from closing when clicking inside
     document.getElementById('post-filter').addEventListener('click', function(e) {
