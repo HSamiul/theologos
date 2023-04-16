@@ -69,7 +69,16 @@
         
             {% for post in posts %}
 
-            <h6>{{ post.title }}</h6>
+            <div class="row">
+                <div class="col-sm-2">
+                    <button>Upvote</button>
+                </div>
+
+                <div class="col text-start">
+                    <h6>{{ post.title }}</h6>
+                </div>
+            </div>
+            
             <p>{{ post.text }}</p>
             <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
 
