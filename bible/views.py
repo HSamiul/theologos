@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Book, Chapter, Verse
 from commentary.forms import PostCreationForm
-from commentary.models import Post
+from commentary.models import Post, Vote
 from commentary.filters import PostFilter
 
 from django.views import View
@@ -94,3 +94,20 @@ class BibleCommentaryView(View):
             # TODO: Flash failure message and redirect to the same page
             else:
                 return HttpResponse('your post was not valid so it was not posted.')
+            
+    def toggle_vote(request, post_pk):
+        if not request.user.is_authenticated:
+            return HttpResponse('You must be signed in to upvote posts.')
+        
+        profile = request.user.profile
+        
+        post = get_object_or_404(Post, pk=post_pk)
+        votes = post.vote_set
+        
+        if profile in votes.profiles:
+            vote = votes.profiles.get(profile=profile)
+            vote.delete()
+            
+        else:
+            vote = Vote(voter=profile, post=post)
+            vote.save()
