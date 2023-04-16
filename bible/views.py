@@ -95,13 +95,13 @@ class BibleCommentaryView(View):
             else:
                 return HttpResponse('your post was not valid so it was not posted.')
             
-    def toggle_vote(request, post_pk):
+    def toggle_vote(request, post_id):
         if not request.user.is_authenticated:
             return HttpResponse('You must be signed in to upvote posts.')
         
         profile = request.user.profile
         
-        post = get_object_or_404(Post, pk=post_pk)
+        post = get_object_or_404(Post, pk=post_id)
         votes = post.vote_set
         
         if profile in votes.profiles:
