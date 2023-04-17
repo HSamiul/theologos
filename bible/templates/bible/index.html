@@ -69,17 +69,7 @@
         
             {% for post in posts %}
 
-            <div class="row">
-                <div class="col">
-                    <h6>{{ post.title }}</h6>
-                </div>
-
-                <div class="col text-end">
-                    <div class="row">
-                        <h6><a href="{% url "bible:toggle_vote" post_id=post.id %}">Vote</a></h6>
-                    </div>
-                </div>
-            </div>
+            <h6>{{ post.title }}</h6>
             
             <p>{{ post.text }}</p>
             <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
