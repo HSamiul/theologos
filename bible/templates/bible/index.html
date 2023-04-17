@@ -71,7 +71,7 @@
 
             <div class="row">
                 <div class="col-sm-2">
-                    <button>Upvote</button>
+                    <a href="{% url "bible:toggle_vote" post_id=post.id %}">Vote</a>
                 </div>
 
                 <div class="col text-start">

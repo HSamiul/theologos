@@ -8,5 +8,5 @@ urlpatterns = [
     # e.g. /bible/gen/1/ or /bible/gen/1/1/
     path('<slug:book_symbol>/<int:chapter_num>/<int:verse_num>/', views.BibleCommentaryView.as_view(), name='index'),
     path('<slug:book_symbol>/<int:chapter_num>/<int:verse_num>/<int:post_id>', views.BibleCommentaryView.as_view(), name='index'),
-    path('<int:post_id>', views.BibleCommentaryView.as_view(), name='index')
+    path('toggle_vote/<int:post_id>/', views.toggle_vote, name='toggle_vote')
 ]
