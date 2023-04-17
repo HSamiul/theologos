@@ -31,7 +31,7 @@ class BibleCommentaryView(View):
         verses = chapter.verse_set.order_by("id")
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
         
-        if not post_id:
+        if not post_id: # the user is viewing all the posts for a specific verse
             post_filter = PostFilter(request.GET, queryset=verse.post_set)
             postCreationForm = PostCreationForm()
             

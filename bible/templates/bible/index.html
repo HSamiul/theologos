@@ -144,7 +144,7 @@
 </div>
 <script>
     // Scroll to selected verse (to counteract reloading the page to the top)
-    document.getElementById('verse-' + '{{ verse.get_id }}').scrollIntoView({behavior: 'smooth'});
+    document.getElementById('verse-' + '{{ verse.get_id }}').scrollIntoView({behavior: 'auto'});
 
     // Stop filter dropdown from closing when clicking inside
     document.getElementById('post-filter').addEventListener('click', function(e) {
