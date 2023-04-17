@@ -85,7 +85,7 @@
             </div>
 
             <div class="row">
-                <div class="col">
+                <div class="col-sm-2">
                     <form action="{% url "bible:toggle_vote" post_id=post.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-secondary btn-sm" value="Vote post">Vote ({{ post.vote_set.count }})</button>
@@ -93,14 +93,14 @@
                 </div>
 
                 {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
-                    <div class="col">
+                    <div class="col text-end"">
                         <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
                         </form>
                     </div>
     
-                    <div class="col text-end">
+                    <div class="col-sm-2 text-end">
                         <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
