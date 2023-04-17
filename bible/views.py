@@ -94,22 +94,23 @@ class BibleCommentaryView(View):
             # TODO: Flash failure message and redirect to the same page
             else:
                 return HttpResponse('your post was not valid so it was not posted.')
-  
-def toggle_vote(request, post_id):
-    # if not request.user.is_authenticated:
-    #     return HttpResponse('You must be signed in to upvote posts.')
-    
-    # profile = request.user.profile
-    
-    # post = get_object_or_404(Post, pk=post_id)
-    # votes = post.vote_set
-    
-    # if profile in votes.profiles:
-    #     vote = votes.profiles.get(profile=profile)
-    #     vote.delete()
-        
-    # else:
-    #     vote = Vote(voter=profile, post=post)
-    #     vote.save()
 
-    return HttpResponse('Successfully upvoted!')
+def toggle_vote(request, post_id):
+    if not request.user.is_authenticated:
+        return HttpResponse('You must be signed in to upvote posts.')
+    
+    profile = request.user.profile
+    
+    post = get_object_or_404(Post, pk=post_id)
+    votes = post.vote_set
+    vote = votes.filter(voter=profile).first()
+        
+    if vote != None:
+        # vote = votes.profiles.get(profile=profile)
+        vote.delete()
+        return HttpResponse("Removed upvote :(")
+        
+    else:
+        vote = Vote(voter=profile, post=post)
+        vote.save()
+        return HttpResponse('Added upvote :)')
