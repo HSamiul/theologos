@@ -97,7 +97,7 @@ class BibleCommentaryView(View):
 
 def toggle_vote(request, post_id):
     if not request.user.is_authenticated:
-        return HttpResponse('You must be signed in to upvote posts.')
+        return HttpResponse('You must be signed in to upvote posts.') # TODO: give a more helpful response (flash a message?)
     
     profile = request.user.profile
     
@@ -108,9 +108,8 @@ def toggle_vote(request, post_id):
     if vote != None:
         # vote = votes.profiles.get(profile=profile)
         vote.delete()
-        return HttpResponse("Removed upvote :(")
-        
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) # reload the page
     else:
         vote = Vote(voter=profile, post=post)
         vote.save()
-        return HttpResponse('Added upvote :)')
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) # reload the page
