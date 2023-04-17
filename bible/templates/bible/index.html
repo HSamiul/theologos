@@ -70,12 +70,14 @@
             {% for post in posts %}
 
             <div class="row">
-                <div class="col-sm-2">
-                    <a href="{% url "bible:toggle_vote" post_id=post.id %}">Vote</a>
+                <div class="col">
+                    <h6>{{ post.title }}</h6>
                 </div>
 
-                <div class="col text-start">
-                    <h6>{{ post.title }}</h6>
+                <div class="col text-end">
+                    <div class="row">
+                        <h6><a href="{% url "bible:toggle_vote" post_id=post.id %}">Vote</a></h6>
+                    </div>
                 </div>
             </div>
             
@@ -92,23 +94,30 @@
                 </div>
             </div>
 
-            {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
             <div class="row">
                 <div class="col">
-                    <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
+                    <form action="{% url "bible:toggle_vote" post_id=post.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+                        <button type="submit" class="btn btn-outline-secondary btn-sm" value="Vote post">Vote ({{ post.vote_set.count }})</button>
                     </form>
                 </div>
 
-                <div class="col text-end">
-                    <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
-                    </form>
-                </div>
+                {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
+                    <div class="col">
+                        <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+                        </form>
+                    </div>
+    
+                    <div class="col text-end">
+                        <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
 
             <hr/>
             {% endfor %}
