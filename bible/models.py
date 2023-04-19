@@ -42,7 +42,9 @@ class Chapter(models.Model):
     number = models.IntegerField(validators=[MinLengthValidator(3), MaxLengthValidator(3)])
 
     def get_id(self): # format: "<book_symbol>-<number>"
-        return f'{self.book.symbol}-{self.number}'
+        number = str(self.number)
+        number = "0" * (3-len(number)) + number
+        return f'{self.book.symbol}-{number}'
     
     def __str__(self):
         return f'{self.book.full_title} {self.number}'
@@ -68,7 +70,9 @@ class Verse(models.Model):
     #original_lang_id = models.CharField(default='en', max_length=10)
 
     def get_id(self): # format: "<book_symbol>-<chapter_number>-<number>"
-        return f'{self.chapter.get_id()}-{self.number}'
+        number = str(self.number)
+        number = "0" * (3-len(number)) + number
+        return f'{self.chapter.get_id()}-{number}'
     
     def __str__(self):
         return f'{self.chapter}:{self.number}'

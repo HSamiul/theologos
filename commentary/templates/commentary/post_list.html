@@ -5,7 +5,7 @@
     </button>
     <div class="dropdown-menu col-md-auto" id="post-filter" aria-labelledby="dropdownMenuButton">
         <div class="container">
-            <form method="GET" action="{% url "bible:index" verse_id=verse.pk %}">
+            <form method="GET" action="{% url "bible:index" verse_id=verse.get_id %}">
                 {{ postFilterForm.as_p }}
                 <input type="submit" value="Submit" class="btn btn-primary"/>
             </form>
@@ -20,7 +20,7 @@
 
     <h6>{{ post.title }}</h6>
     <p>{{ post.text }}</p>
-    <a href="{% url "bible:index" verse_id=verse.pk post_id=post.id %}">See more</a>
+    <a href="{% url "bible:index" verse_id=post.verse.get_id %}">See more</a>
 
     <div class="row">
         <div class="col">

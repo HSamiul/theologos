@@ -3,7 +3,7 @@
 <div class="container my-5">
   <div class="row mt-5">
         <div class="col-md-3 col-sm-6">
-            <a href="{% url "bible:index" verse_id=post.verse.pk %}" class="btn btn-light">
+            <a href="{% url "bible:index" verse_id=post.verse.get_id %}" class="btn btn-light">
                 Back to posts about {{ post.verse }}
             </a>
         </div>
