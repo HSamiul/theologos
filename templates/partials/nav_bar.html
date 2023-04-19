@@ -28,9 +28,9 @@
                                     {% for verse in chapter.verse_set.all %}
                                         <li>
                                             <a class="dropdown-item"
-                                                id="nav-{{book.symbol}}-{{chapter.number}}-{{verse.number}}"
+                                                id="nav-{{ verse.get_id }}"
                                                 onclick="console.log(this.id)">
-                                                {{ book.full_title }} {{ chapter.number }}:{{ verse.number }}
+                                                {{ verse }}
                                             </a>
                                         </li>
                                     {% endfor %}
@@ -47,10 +47,10 @@
             {% for book in books %}
                 {% for chapter in book.chapter_set.all %}
                     {% for verse in chapter.verse_set.all %}
-                        document.getElementById("nav-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").addEventListener('click', function(e) {
+                        document.getElementById("nav-{{ verse.get_id }}").addEventListener('click', function(e) {
                             e.preventDefault();
-                            document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").scrollIntoView({behavior: 'smooth'});
-                            document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").click();
+                            document.getElementById("verse-{{ verse.get_id }}").scrollIntoView({behavior: 'smooth'});
+                            document.getElementById("verse-{{ verse.get_id }}").click();
                         });
                     {% endfor %}
                 {% endfor %}
