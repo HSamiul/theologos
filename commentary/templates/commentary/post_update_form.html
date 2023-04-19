@@ -1,27 +1,62 @@
+{% extends "base.html" %}
+
 {% load crispy_forms_tags %}
 
+{% block title %} Bible | {{ verse }} {% endblock %}
+
+{% block content %}
 <div class="container my-5">
-  <div class="row mt-5">
-        <div class="col-md-3 col-sm-6">
-            <a href="{% url "bible:index" verse_id=post.verse.get_id %}" class="btn btn-light">
-                Back to posts about {{ post.verse }}
-            </a>
+    <div class="row" style="overflow-y: hidden">
+        <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
+        
+            {% include "../bible/bible_list.html" with books=books%}
+            
         </div>
-  </div>
-  <div class="row justify-content-center mt-5">
-      <div class="col-md-5 col-sm-12">
-          <h5>Edit Your Post</h5>
-      </div>
-  </div>
-  <div class="row justify-content-center mt-3 mb-5">
-      <div class="col-md-5 col-sm-12">
-          <form method="POST">
-              {% csrf_token %}
-              {{ postUpdateForm | crispy }}
-              <div class="d-grid gap-2">
-                  <button class="btn btn-success mt-3">Save</button>
-              </div>
-          </form>
-      </div>
-  </div>
+
+        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
+
+            <div class="row">
+                <div class="col">
+                    <a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
+                        Back to posts about {{ object.verse }}
+                    </a>
+                </div>
+            </div>
+
+            <hr/>
+
+            {% if user.is_authenticated and object.author.user.pk == user.pk %} <!-- Only let users delete their own comments -->
+            
+            <div class="row">
+                <div class="col">
+                    <h5>Edit Your Post</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success mt-3">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            {% else %} <!-- If the user is not the owner of the comment -->
+                <span>You are not authorized to edit this post</span>
+            {% endif %}
+        </div>
+    </div>
 </div>
+<script>
+    // Scroll to selected verse (to counteract reloading the page to the top)
+    document.getElementById('verse-{{ object.verse.get_id }}').scrollIntoView({behavior: 'smooth'});
+
+    // Stop filter dropdown from closing when clicking inside
+    document.getElementById('post-filter').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+</script>
+{% endblock %}

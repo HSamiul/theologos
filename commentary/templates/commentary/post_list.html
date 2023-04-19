@@ -20,7 +20,7 @@
 
     <h6>{{ post.title }}</h6>
     <p>{{ post.text }}</p>
-    <a href="{% url "bible:index" verse_id=post.verse.get_id %}">See more</a>
+    <a href="{% url "commentary:post-detail" post.pk %}">See more</a>
 
     <div class="row">
         <div class="col">

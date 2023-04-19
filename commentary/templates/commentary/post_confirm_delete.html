@@ -15,17 +15,17 @@
 
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
 
-            {% if user.is_authenticated and object.author.user.pk == user.pk %} <!-- Only let users delete their own comments -->
-            
-                <div class="row">
-                    <div class="col">
-                        <a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
-                            Back to posts about {{ object.verse }}
-                        </a>
-                    </div>
+            <div class="row">
+                <div class="col">
+                    <a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
+                        Back to posts about {{ object.verse }}
+                    </a>
                 </div>
+            </div>
 
-                <hr/>
+            <hr/>
+
+            {% if user.is_authenticated and object.author.user.pk == user.pk %} <!-- Only let users delete their own comments -->
                 
                 <div class="row">
                     <div class="col">
