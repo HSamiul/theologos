@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Book, Chapter, Verse
 from commentary.forms import PostCreationForm
-from commentary.models import Post
+from commentary.models import Post, Vote
 from commentary.filters import PostFilter
 
 from django.views import View
@@ -31,7 +31,7 @@ class BibleCommentaryView(View):
         verses = chapter.verse_set.order_by("id")
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
         
-        if not post_id:
+        if not post_id: # the user is viewing all the posts for a specific verse
             post_filter = PostFilter(request.GET, queryset=verse.post_set)
             postCreationForm = PostCreationForm()
             
@@ -94,3 +94,22 @@ class BibleCommentaryView(View):
             # TODO: Flash failure message and redirect to the same page
             else:
                 return HttpResponse('your post was not valid so it was not posted.')
+
+def toggle_vote(request, post_id):
+    if not request.user.is_authenticated:
+        return HttpResponse('You must be signed in to upvote posts.') # TODO: give a more helpful response (flash a message?)
+    
+    profile = request.user.profile
+    
+    post = get_object_or_404(Post, pk=post_id)
+    votes = post.vote_set
+    vote = votes.filter(voter=profile).first()
+        
+    if vote != None:
+        # vote = votes.profiles.get(profile=profile)
+        vote.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) # reload the page
+    else:
+        vote = Vote(voter=profile, post=post)
+        vote.save()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) # reload the page

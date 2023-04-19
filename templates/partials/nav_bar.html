@@ -49,7 +49,7 @@
                     {% for verse in chapter.verse_set.all %}
                         document.getElementById("nav-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").addEventListener('click', function(e) {
                             e.preventDefault();
-                            document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").scrollIntoView({behavior: 'smooth'});
+                            document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").scrollIntoView({behavior: 'auto'});
                             document.getElementById("verse-{{book.symbol}}-{{chapter.number}}-{{verse.number}}").click();
                         });
                     {% endfor %}

@@ -70,6 +70,7 @@
             {% for post in posts %}
 
             <h6>{{ post.title }}</h6>
+            
             <p>{{ post.text }}</p>
             <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number post_id=post.id %}">See more</a>
 
@@ -83,23 +84,30 @@
                 </div>
             </div>
 
-            {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
             <div class="row">
-                <div class="col">
-                    <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
+                <div class="col-sm-2">
+                    <form action="{% url "bible:toggle_vote" post_id=post.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+                        <button type="submit" class="btn btn-outline-secondary btn-sm" value="Vote post">Vote ({{ post.vote_set.count }})</button>
                     </form>
                 </div>
 
-                <div class="col text-end">
-                    <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
-                    </form>
-                </div>
+                {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
+                    <div class="col text-end"">
+                        <form action="{% url 'commentary:edit-post' post.pk %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+                        </form>
+                    </div>
+    
+                    <div class="col-sm-2 text-end">
+                        <form action="{% url 'commentary:delete-post' post.pk %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
 
             <hr/>
             {% endfor %}
@@ -126,7 +134,7 @@
 </div>
 <script>
     // Scroll to selected verse (to counteract reloading the page to the top)
-    document.getElementById('verse-' + '{{ verse.get_id }}').scrollIntoView({behavior: 'smooth'});
+    document.getElementById('verse-' + '{{ verse.get_id }}').scrollIntoView({behavior: 'auto'});
 
     // Stop filter dropdown from closing when clicking inside
     document.getElementById('post-filter').addEventListener('click', function(e) {
