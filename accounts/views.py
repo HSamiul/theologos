@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from profiles.forms import ProfileCreationForm
+from profiles.forms import ProfileForm
 from .forms import UserCreationForm
 from .models import User
 
@@ -20,22 +20,24 @@ class UserDetailView(DetailView, LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         user = self.get_object()
         return self.request.user.pk == user.pk
+    
+
 
 def register(request):
     # if this URL was requested via a POST method, try creating a user
     if request.method == 'POST': 
         # use POST data to populate forms
         userCreationForm = UserCreationForm(request.POST)
-        profileCreationForm = ProfileCreationForm(request.POST)
+        profileForm = ProfileForm(request.POST)
         
         # prevent short circuiting by doing this outside of the if-clause below
         # the entire form will be validated as a result
         userCreationFormValid = userCreationForm.is_valid()
-        profileCreationFormValid = profileCreationForm.is_valid()
+        profileFormValid = profileForm.is_valid()
         
-        if userCreationFormValid and profileCreationFormValid:
+        if userCreationFormValid and profileFormValid:
             user = userCreationForm.save()
-            profile = profileCreationForm.save(commit=False) # generate user object without affecting database
+            profile = profileForm.save(commit=False) # generate user object without affecting database
             
             profile.user = user # create the profile's foreign key to user and save
             profile.save()
@@ -43,8 +45,8 @@ def register(request):
             messages.success(request, 'Account created successfully') # flash a success message
             return HttpResponse('Created user and profile!') # TODO: Redirect to homepage instead
         else:
-            for error in profileCreationForm.errors:
-                messages.error(request, profileCreationForm.errors[error])
+            for error in profileForm.errors:
+                messages.error(request, profileForm.errors[error])
                 return redirect(request.path)
             for error in userCreationForm.errors:
                 messages.error(request, userCreationForm.errors[error])
@@ -54,9 +56,9 @@ def register(request):
     # if this URL was requested via a GET method, display a form to register a user
     else:
         userCreationForm = UserCreationForm()
-        profileCreationForm = ProfileCreationForm()
+        profileForm = ProfileForm()
         
         context = {'userCreationForm' : userCreationForm,
-                   'profileCreationForm' : profileCreationForm}
+                   'profileForm' : profileForm}
     
         return render(request, 'accounts/register.html', context)
