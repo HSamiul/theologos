@@ -3,11 +3,7 @@ from . import views
 
 app_name = 'commentary'
 urlpatterns = [
-    # e.g. /<post_id>/delete
-    path('<slug:pk>/delete', views.PostDeleteView.as_view(), name='delete-post'),
-
-    # e.g. /<post_id>/edit
-    path('<slug:pk>/edit', views.PostUpdateView.as_view(), name='edit-post'),
-
-    # TODO: Add delete comment URL and view
+    path('<slug:pk>/detail', views.PostDetailView.as_view(), name='post-detail'), # i.e. /<post_id>/detail
+    path('<slug:pk>/delete', views.PostDeleteView.as_view(), name='post-delete'), # i.e. /<post_id>/delete
+    path('<slug:pk>/edit', views.PostUpdateView.as_view(), name='post-edit'), # i.e. /<post_id>/edit
 ]
