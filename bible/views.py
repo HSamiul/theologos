@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Book, Chapter, Verse
+from .models import Book, Verse
 from commentary.forms import PostCreationForm
 from commentary.models import Post
 from commentary.filters import PostFilter
@@ -12,24 +12,18 @@ class BibleCommentaryView(View):
     books = Book.objects.all()
 
     def get(self, request, *args, **kwargs):
-        book_symbol = kwargs.get('book_symbol', None)
-        chapter_num = kwargs.get('chapter_num', None)
-        verse_num = kwargs.get('verse_num', None)
-        # TODO add version_id in the future
+        verse_id = kwargs.get('verse_id', None)
         post_id = kwargs.get('post_id', None)
         
         # the user is reading the Bible from the top
-        if not book_symbol and not chapter_num and not verse_num and not post_id:
+        if not verse_id:
             context = {
                 'books' : self.books,
             }
             return render(request, 'bible/index.html', context)
         
         # the user is viewing OR submitting commentary for a specific verse
-        book = get_object_or_404(Book, pk=book_symbol)
-        chapter = get_object_or_404(Chapter, book=book, number=chapter_num)
-        verses = chapter.verse_set.order_by("id")
-        verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
+        verse = get_object_or_404(Verse, pk=verse_id)
         
         if not post_id:
             post_filter = PostFilter(request.GET, queryset=verse.post_set)
@@ -37,9 +31,6 @@ class BibleCommentaryView(View):
             
             context = {
                 'books' : self.books,
-                'book' : book,
-                'chapter' : chapter,
-                'verses': verses,
                 'verse': verse, # specific verse being viewed
                 'posts': post_filter.qs.order_by('creation_time'), # filtered posts for that verse
                 'postCreationForm': postCreationForm, # form to add commentary to that verse
@@ -62,16 +53,12 @@ class BibleCommentaryView(View):
         return render(request, 'bible/index.html', context)
 
     def post(self, request, *args, **kwargs):
-        book_symbol = kwargs.get('book_symbol', None)
-        chapter_num = kwargs.get('chapter_num', None)
-        verse_num = kwargs.get('verse_num', None)
+        verse_id = kwargs.get('verse_id', None)
         
-        if not book_symbol and not chapter_num and not verse_num:
+        if not verse_id:
             return HttpResponse('Failed to post. You must select a verse to post.')
 
-        book = get_object_or_404(Book, pk=book_symbol)
-        chapter = get_object_or_404(Chapter, book=book, number=chapter_num)
-        verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
+        verse = get_object_or_404(Verse, pk=verse_id)
         postCreationForm = PostCreationForm()
 
         # do not allow posts to be made while not signed in

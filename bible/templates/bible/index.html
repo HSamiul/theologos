@@ -15,7 +15,7 @@
 
         <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
         <h2 style="padding-top: 50px;">Comments for {{ verse }}</h2>
-            {% if post %}
+            {% if post %} <!-- if viewing a specific post -->
                 {% include "../commentary/post_detail.html" with post=post verse=verse%}
 
             {% elif verse %} <!-- if the URL specifies a selected verse number, show commentary -->

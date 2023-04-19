@@ -1,15 +1,12 @@
-{% extends "base.html" %}
-
 {% load crispy_forms_tags %}
 
-{% block title %} Edit your comment {% endblock %}
-
-{% block content %}
 <div class="container my-5">
   <div class="row mt-5">
-      <div class="col-md-3 col-sm-6">
-          <a href="{% url 'bible:index' object.verse.chapter.book.symbol object.verse.chapter.number object.verse.number %}" class="btn btn-light">Back to Bible</a>
-      </div>
+        <div class="col-md-3 col-sm-6">
+            <a href="{% url "bible:index" verse_id=post.verse.pk %}" class="btn btn-light">
+                Back to posts about {{ post.verse }}
+            </a>
+        </div>
   </div>
   <div class="row justify-content-center mt-5">
       <div class="col-md-5 col-sm-12">
@@ -20,12 +17,11 @@
       <div class="col-md-5 col-sm-12">
           <form method="POST">
               {% csrf_token %}
-              {{ form | crispy }}
+              {{ postUpdateForm | crispy }}
               <div class="d-grid gap-2">
-                  <button class="btn btn-success mt-3">Update</button>
+                  <button class="btn btn-success mt-3">Save</button>
               </div>
           </form>
       </div>
   </div>
 </div>
-{% endblock %}

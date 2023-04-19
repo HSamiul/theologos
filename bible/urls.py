@@ -4,8 +4,7 @@ from . import views
 app_name = 'bible'
 
 urlpatterns = [
-    path('', views.BibleCommentaryView.as_view(), name='index'),
-    # e.g. /bible/gen/1/ or /bible/gen/1/1/
-    path('<slug:book_symbol>/<int:chapter_num>/<int:verse_num>/', views.BibleCommentaryView.as_view(), name='index'),
-    path('<slug:book_symbol>/<int:chapter_num>/<int:verse_num>/<int:post_id>', views.BibleCommentaryView.as_view(), name='index')
+    path('', views.BibleCommentaryView.as_view(), name='index'), # e.g. /bible
+    path('<slug:verse_id>/', views.BibleCommentaryView.as_view(), name='index'), # e.g. /bible/gen-001-001
+    path('<slug:verse_id>/<int:post_id>', views.BibleCommentaryView.as_view(), name='index'), # e.g. /bible/gen-001-001/1
 ]

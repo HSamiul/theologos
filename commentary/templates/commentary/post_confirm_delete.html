@@ -1,14 +1,11 @@
-{% extends "base.html" %}
-
 {% load crispy_forms_tags %}
 
-{% block title %} Are you sure? {% endblock %}
-
-{% block content %}
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-3 col-sm-6">
-            <a href="{% url 'bible:index' object.verse.chapter.book.symbol object.verse.chapter.number object.verse.number %}" class="btn btn-light">Back to Bible</a>
+            <a href="{% url "bible:index" verse_id=object.verse.pk %}" class="btn btn-light">
+                Back to posts about {{ post.verse }}
+            </a>
         </div>
     </div>
     <div class="row justify-content-center mt-5">
@@ -17,7 +14,7 @@
             <p>You are about to delete this post, this cannot be undone.</p>
         <form method="POST">
             {% csrf_token %}
-            {{ form }}
+            {{ postDeleteForm | crispy }}
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </div>
@@ -25,4 +22,3 @@
     </div>
     </div>
 </div>
-{% endblock content %}

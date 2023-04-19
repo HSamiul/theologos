@@ -5,7 +5,7 @@
         <p>
         {% for verse in chapter.verse_set.all %}
             <!-- Jump to the desired verse with a similar url to /bible/#phil-1-1 -->
-            <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
+            <a href="{% url "bible:index" verse_id=verse.pk %}"
                 id="verse-{{ verse.get_id }}"
                 style="text-decoration: none; color: inherit; scroll-margin: 30px;">
                 <sup>{{ verse.number }}</sup> {{ verse.original_text }}
