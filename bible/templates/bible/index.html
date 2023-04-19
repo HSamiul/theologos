@@ -10,11 +10,11 @@
         <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
 
             {% for book in books %}
-            <h1 style="padding-top: 50px;">{{ book.full_title }}</h1>
-                {% for chapter in book.chapter_set.all %}
+            <h1 style="padding-top: 50px;">{{ book }}</h1>
+                {% for chapter in book.get_chapters %}
                     <h2>{{ chapter.number }}</h2>
                     <p>
-                    {% for verse in chapter.verse_set.all %}
+                    {% for verse in chapter.get_verses %}
                         <!-- Jump to the desired verse with a similar url to /bible/#phil-1-1 -->
                         <a href="{% url "bible:index" book_symbol=book.symbol chapter_num=chapter.number verse_num=verse.number %}"
                             id="verse-{{ verse.get_id }}"

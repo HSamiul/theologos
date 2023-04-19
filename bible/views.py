@@ -28,7 +28,7 @@ class BibleCommentaryView(View):
         # the user is viewing OR submitting commentary for a specific verse
         book = get_object_or_404(Book, pk=book_symbol)
         chapter = get_object_or_404(Chapter, book=book, number=chapter_num)
-        verses = chapter.verse_set.order_by("id")
+        verses = chapter.get_verses()
         verse = get_object_or_404(Verse, chapter=chapter, number=verse_num)
         
         if not post_id: # the user is viewing all the posts for a specific verse

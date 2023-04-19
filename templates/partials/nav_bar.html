@@ -21,11 +21,11 @@
                     <li class="dropend">
                         <a class="dropdown-item dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown">{{ book }}</a>
                         <ul class="dropdown-menu">
-                            {% for chapter in book.chapter_set.all %}
+                            {% for chapter in book.get_chapters %}
                             <li>
                                 <a class="dropdown-item dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="#">{{ chapter }}</a>
                                 <ul class="dropdown-menu">
-                                    {% for verse in chapter.verse_set.all %}
+                                    {% for verse in chapter.get_verses %}
                                         <li>
                                             <a class="dropdown-item"
                                                 id="nav-{{ verse.get_id }}"
@@ -45,8 +45,8 @@
         <script>
             // Make verses in Bible navigation clickable
             {% for book in books %}
-                {% for chapter in book.chapter_set.all %}
-                    {% for verse in chapter.verse_set.all %}
+                {% for chapter in book.get_chapters %}
+                    {% for verse in chapter.get_verses %}
                         document.getElementById("nav-{{ verse.get_id }}").addEventListener('click', function(e) {
                             e.preventDefault();
                             document.getElementById("verse-{{ verse.get_id }}").scrollIntoView({behavior: 'auto'});
