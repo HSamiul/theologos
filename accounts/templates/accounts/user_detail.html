@@ -36,6 +36,15 @@
         </tr>
     </table>
 
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'accounts:edit' object.pk %}" method="GET">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary" value="Edit account">Edit Account Information</button>
+            </form>
+        </div>
+    </div>
+
     </div>
 </div>
 {% endblock %}

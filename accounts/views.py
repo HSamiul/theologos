@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 
 from profiles.forms import ProfileForm
 from .forms import UserCreationForm
@@ -21,6 +23,40 @@ class UserDetailView(DetailView, LoginRequiredMixin, UserPassesTestMixin):
         user = self.get_object()
         return self.request.user.pk == user.pk
     
+class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
+    model = User
+    fields = ["username", "first_name", "last_name", "email"]
+    template_name_suffix = "_update_form"
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        context["profile"] = user.profile
+        context["profileForm"] = ProfileForm(instance=user.profile)
+        return context
+    
+    def form_valid(self, form):
+        user = self.get_object()
+        profileUpdateForm = ProfileForm(self.request.POST, instance=user.profile)
+        
+        # need to check profile form separately
+        if profileUpdateForm.is_valid():
+            profileUpdateForm.save()
+            messages.success(self.request, 'Account updated successfully')
+            context = { 'object' : user, 'profile' : user.profile }
+            return render(self.request, 'accounts/user_detail.html', context)
+        else:
+            for error in profileUpdateForm.errors:
+                messages.error(self.request, profileUpdateForm.errors[error])
+                return redirect(self.request.path)
+            return HttpResponse('Failed to update account :(')
+    
+    def get_success_url(self):
+        return reverse_lazy("accounts:detail", kwargs={"pk":self.get_object().pk})
+    
+    def test_func(self):
+        user = self.get_object()
+        return self.request.user.pk == user.pk
 
 
 def register(request):
