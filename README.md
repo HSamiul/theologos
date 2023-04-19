@@ -63,6 +63,12 @@ We're almost there. We just need to set up the Django project itself now.
 ### Set up the Django project
 You need to do some initial setup to run the project for the first time. This initial setup is mostly just setting up the database with a few commands:
 
+1. Open a terminal
+2. Navigate to the project directory
+3. Run this command to activate the venv: `source ~/.virtualenvs/djangodev/bin/activate`
+
+Run the following commands to set up the project:
+
 1. `python manage.py makemigrations`
 2. `python manage.py migrate`
 3. `python manage.py loaddata books`
