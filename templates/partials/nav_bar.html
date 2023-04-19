@@ -71,7 +71,7 @@
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Hello, {{ user.username }}</a>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item disabled" href="#">Account</a> <!-- page not yet implemented -->
+                    <a class="dropdown-item" href={% url 'accounts:detail' user.pk %}>Account</a>
                     <a class="dropdown-item" href={% url 'logout' %}>Log out</a>
                 </div>
             </div>

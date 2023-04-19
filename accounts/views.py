@@ -2,9 +2,24 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from profiles.forms import ProfileCreationForm
 from .forms import UserCreationForm
+from .models import User
+
+class UserDetailView(DetailView, LoginRequiredMixin, UserPassesTestMixin):
+    model = User
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["profile"] = self.get_object().profile
+        return context
+    
+    def test_func(self):
+        user = self.get_object()
+        return self.request.user.pk == user.pk
 
 def register(request):
     # if this URL was requested via a POST method, try creating a user
@@ -13,7 +28,7 @@ def register(request):
         userCreationForm = UserCreationForm(request.POST)
         profileCreationForm = ProfileCreationForm(request.POST)
         
-        # prevent short cicuiting by doing this outside of the if-clause below
+        # prevent short circuiting by doing this outside of the if-clause below
         # the entire form will be validated as a result
         userCreationFormValid = userCreationForm.is_valid()
         profileCreationFormValid = profileCreationForm.is_valid()
