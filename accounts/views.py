@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
@@ -54,6 +54,15 @@ class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
     def get_success_url(self):
         return reverse_lazy("accounts:detail", kwargs={"pk":self.get_object().pk})
     
+    def test_func(self):
+        user = self.get_object()
+        return self.request.user.pk == user.pk
+
+
+class UserDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
+    model = User
+    success_url = reverse_lazy("login")
+
     def test_func(self):
         user = self.get_object()
         return self.request.user.pk == user.pk
