@@ -1,48 +1,26 @@
-{% extends "base.html" %}
-
-{% load crispy_forms_tags %}
+{% extends "../bible/bible_split_view.html" %}
 
 {% block title %} Bible | {{ verse }} {% endblock %}
 
-{% block content %}
-<div class="container my-5">
-    <div class="row" style="overflow-y: hidden">
-        <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
-        
-            {% include "../bible/bible_list.html" with books=books%}
-            
-        </div>
+{% block back-button %}
+<a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
+    Back to posts about {{ object.verse }}
+</a>
+{% endblock %}
 
-        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
+{% block commentary-heading %} {{ object.title }} {% endblock %}
 
-            <a href="{% url "bible:index" verse_id=object.verse.get_id %}">
-                Back to posts about {{ object.verse }}
-            </a>
-            
-            <h2>{{ object.title }}</h2>
-            
-            <p>{{ object.author }} | {{ object.creation_time }}</p>
-            <p>{{ object.text }}</p>
-            
-            <hr/>
-            
-            <h5>{{ object.get_comments.count }} comments</h5>
-            
-            {% for comment in object.get_comments %}
-            <!-- TODO: render a comment -->
-            {% endfor %}
-            
-            <!-- TODO: add comment form -->
-        </div>
-    </div>
-</div>
-<script>
-    // Scroll to selected verse (to counteract reloading the page to the top)
-    document.getElementById('verse-{{ object.verse.get_id }}').scrollIntoView({behavior: 'smooth'});
+{% block commentary %}
+<p>{{ object.text }}</p>
+<p>{{ object.author }} | {{ object.creation_time }}</p>
 
-    // Stop filter dropdown from closing when clicking inside
-    document.getElementById('post-filter').addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-</script>
+<hr/>
+
+<h5>{{ object.get_comments.count }} comments</h5>
+
+{% for comment in object.get_comments %}
+<!-- TODO: render a comment -->
+{% endfor %}
+
+<!-- TODO: add comment form -->
 {% endblock %}

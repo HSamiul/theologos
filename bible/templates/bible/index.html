@@ -1,42 +1,38 @@
-{% extends "base.html" %}
+{% extends "./bible_split_view.html" %}
 
-{% load crispy_forms_tags %}
+{% block title %} 
 
-{% block title %} Bible | {{ verse }} {% endblock %}
+    {% if verse %}
+        Bible | {{ verse }} 
+    {% else %}
+        Bible
+    {% endif %}
 
-{% block content %}
-<div class="container my-5">
-    <div class="row" style="overflow-y: hidden">
-        <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
-        
-            {% include "./bible_list.html" with books=books%}
+{% endblock %}
+
+{% block commentary-heading %}
+
+    {% if verse %}
+        Comments for {{ verse }} 
+    {% else %}
+        Select a verse
+    {% endif %}
+
+{% endblock %}
+
+
+{% block commentary %}
+
+    {% if verse %}
+        {% include "../commentary/post_list.html" with postFilterForm=postFilterForm posts=posts verse=verse%}
             
-        </div>
+        {% if user.is_authenticated %} <!-- If the user is signed in, let them comment  -->
+            {% include "../commentary/post_create_form.html" with postCreationForm=postCreationForm %}
+        {% else %} <!-- If the user is not signed in, make them sign in to comment -->
+            <span><a href={% url 'login' %}>Sign in</a> to add a comment</span>
+        {% endif %}
+    {% else %}
+        <span>Select a verse to view comments.</span>
+    {% endif %}
 
-        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
-        <h2 style="padding-top: 50px;">Comments for {{ verse }}</h2>
-            {% if verse %} <!-- if the URL specifies a selected verse number, show commentary -->
-                {% include "../commentary/post_list.html" with postFilterForm=postFilterForm posts=posts verse=verse%}
-                
-                {% if user.is_authenticated %} <!-- If the user is signed in, let them comment  -->
-                    {% include "../commentary/post_create_form.html" with postCreationForm=postCreationForm %}
-                {% else %} <!-- If the user is not signed in, make them sign in to comment -->
-                    <span><a href={% url 'login' %}>Sign in</a> to add a comment</span>
-                {% endif %}
-
-            {% else %} <!-- If a verse is not specified in the URL, do not show commentary -->
-                <span>Select a verse to view comments.</span>
-            {% endif %}
-        </div>
-    </div>
-</div>
-<script>
-    // Scroll to selected verse (to counteract reloading the page to the top)
-    document.getElementById('verse-{{ verse.get_id }}').scrollIntoView({behavior: 'smooth'});
-
-    // Stop filter dropdown from closing when clicking inside
-    document.getElementById('post-filter').addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-</script>
 {% endblock %}
