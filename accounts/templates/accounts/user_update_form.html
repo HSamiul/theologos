@@ -27,7 +27,7 @@
           <form method="POST">
               {% csrf_token %}
               {{ form | crispy }}
-              {{ profileUpdateForm | crispy }}
+              {{ profileForm | crispy }}
               <div class="d-grid gap-2">
                   <button class="btn btn-success mt-3">Save</button>
               </div>
