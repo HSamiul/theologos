@@ -13,7 +13,6 @@ class BibleCommentaryView(View):
 
     def get(self, request, *args, **kwargs):
         verse_id = kwargs.get('verse_id', None)
-        post_id = kwargs.get('post_id', None)
         
         # the user is reading the Bible from the top
         if not verse_id:
@@ -25,28 +24,17 @@ class BibleCommentaryView(View):
         # the user is viewing OR submitting commentary for a specific verse
         verse = get_object_or_404(Verse, pk=verse_id)
         
-        if not post_id:
-            post_filter = PostFilter(request.GET, queryset=verse.post_set)
-            postCreationForm = PostCreationForm()
-            
-            context = {
-                'books' : self.books,
-                'verse': verse, # specific verse being viewed
-                'posts': post_filter.qs.order_by('creation_time'), # filtered posts for that verse
-                'postCreationForm': postCreationForm, # form to add commentary to that verse
-                'postFilterForm': post_filter.form # form to filter posts
-            }
-            
-            return render(request, 'bible/index.html', context)
+        post_filter = PostFilter(request.GET, queryset=verse.post_set)
+        postCreationForm = PostCreationForm()
         
-        # the user is viewing a post detail view
-        post = get_object_or_404(Post, pk=post_id)
         context = {
             'books' : self.books,
             'verse': verse, # specific verse being viewed
-            'post' : post
+            'posts': post_filter.qs.order_by('creation_time'), # filtered posts for that verse
+            'postCreationForm': postCreationForm, # form to add commentary to that verse
+            'postFilterForm': post_filter.form # form to filter posts
         }
-
+        
         return render(request, 'bible/index.html', context)
 
     def post(self, request, *args, **kwargs):
