@@ -40,7 +40,7 @@ class Post(models.Model):
         '''
         Retrieve all comments of this post.
         '''
-        return Comment.objects.filter(post=self)
+        return Comment.objects.filter(post=self).order_by("creation_time")
 
     def __str__(self):
         return f"Post by {self.author}: \"{self.text}\""

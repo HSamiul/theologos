@@ -1,0 +1,26 @@
+{% extends "../bible/bible_split_view.html" %}
+
+{% block title %} Bible | {{ verse }} {% endblock %}
+
+{% block back-button %}
+<a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
+    Back to posts about {{ object.verse }}
+</a>
+{% endblock %}
+
+{% block commentary-heading %} {{ object.title }} {% endblock %}
+
+{% block commentary %}
+<p>{{ object.text }}</p>
+<p>{{ object.author }} | {{ object.creation_time }}</p>
+
+<hr/>
+
+<h5>{{ object.get_comments.count }} comments</h5>
+
+{% for comment in object.get_comments %}
+<!-- TODO: render a comment -->
+{% endfor %}
+
+<!-- TODO: add comment form -->
+{% endblock %}

@@ -1,0 +1,54 @@
+<!-- Comment filter dropdown menu -->
+<div class="dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter Posts
+    </button>
+    <div class="dropdown-menu col-md-auto" id="post-filter" aria-labelledby="dropdownMenuButton">
+        <div class="container">
+            <form method="GET" action="{% url "bible:index" verse_id=verse.get_id %}">
+                {{ postFilterForm.as_p }}
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<!-- All relevant posts for the verse -->
+{% for post in posts %}
+
+    <h6>{{ post.title }}</h6>
+    <p>{{ post.text }}</p>
+    <a href="{% url "commentary:post-detail" post.pk %}">See more</a>
+
+    <div class="row">
+        <div class="col">
+            <span>{{ post.author }}</span>
+        </div>
+
+        <div class="col text-end">
+            <span>{{ post.creation_time }}</span>
+        </div>
+    </div>
+
+    {% if user.is_authenticated and post.author.user.pk == user.pk %} <!-- Only let users edit and delete their own comments   -->
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'commentary:post-edit' post.pk %}" method="GET">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
+            </form>
+        </div>
+
+        <div class="col text-end">
+            <form action="{% url 'commentary:post-delete' post.pk %}" method="GET">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm" value="Delete post">Delete</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <hr/>
+{% endfor %}

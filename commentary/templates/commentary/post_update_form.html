@@ -1,31 +1,31 @@
-{% extends "base.html" %}
-
+{% extends "../bible/bible_split_view.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %} Edit your comment {% endblock %}
+{% block title %} Bible | {{ verse }} {% endblock %}
 
-{% block content %}
-<div class="container my-5">
-  <div class="row mt-5">
-      <div class="col-md-3 col-sm-6">
-          <a href="{% url 'bible:index' object.verse.chapter.book.symbol object.verse.chapter.number object.verse.number %}" class="btn btn-light">Back to Bible</a>
-      </div>
-  </div>
-  <div class="row justify-content-center mt-5">
-      <div class="col-md-5 col-sm-12">
-          <h5>Edit Your Post</h5>
-      </div>
-  </div>
-  <div class="row justify-content-center mt-3 mb-5">
-      <div class="col-md-5 col-sm-12">
-          <form method="POST">
-              {% csrf_token %}
-              {{ form | crispy }}
-              <div class="d-grid gap-2">
-                  <button class="btn btn-success mt-3">Update</button>
-              </div>
-          </form>
-      </div>
-  </div>
+{% block back-button %}
+<a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
+    Back to posts about {{ object.verse }}
+</a>
+{% endblock %}
+
+{% block commentary-heading %} Edit Your Post {% endblock %}
+
+{% block commentary %}
+{% if user.is_authenticated and object.author.user.pk == user.pk %} <!-- Only let users delete their own comments -->
+<div class="row">
+    <div class="col">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div class="d-grid gap-2">
+                <button class="btn btn-success mt-3">Save</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+{% else %} <!-- If the user is not the owner of the comment -->
+    <span>You are not authorized to edit this post</span>
+{% endif %}
 {% endblock %}

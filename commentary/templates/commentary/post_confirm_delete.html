@@ -1,28 +1,33 @@
-{% extends "base.html" %}
-
+{% extends "../bible/bible_split_view.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %} Are you sure? {% endblock %}
+{% block title %} Bible | {{ verse }} {% endblock %}
 
-{% block content %}
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-md-3 col-sm-6">
-            <a href="{% url 'bible:index' object.verse.chapter.book.symbol object.verse.chapter.number object.verse.number %}" class="btn btn-light">Back to Bible</a>
-        </div>
-    </div>
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-5 col-sm-12">
-            <h5>Are You Sure?</h5>
-            <p>You are about to delete this post, this cannot be undone.</p>
+{% block back-button %}
+<a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
+    Back to posts about {{ object.verse }}
+</a>
+{% endblock %}
+
+{% block commentary-heading %} Are You Sure? {% endblock %}
+
+{% block commentary %}
+{% if user.is_authenticated and object.author.user.pk == user.pk %} <!-- Only let users delete their own comments -->
+    
+    <div class="row">
+        <div class="col">
+            <p>{{ object.verse.original_text }}</p>
         <form method="POST">
             {% csrf_token %}
-            {{ form }}
+            {{ form | crispy }}
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </div>
         </form>
+        </div>
     </div>
-    </div>
-</div>
-{% endblock content %}
+
+{% else %} <!-- If the user is not the owner of the comment -->
+    <span>You are not authorized to delete this post</span>
+{% endif %}
+{% endblock %}
