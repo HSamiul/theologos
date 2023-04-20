@@ -1,9 +1,9 @@
 {% for book in books %}
 <h1 style="padding-top: 50px;">{{ book.full_title }}</h1>
-    {% for chapter in book.chapter_set.all %}
+    {% for chapter in book.get_chapters %}
         <h2>{{ chapter.number }}</h2>
         <p>
-        {% for verse in chapter.verse_set.all %}
+        {% for verse in chapter.get_verses %}
             <!-- Jump to the desired verse with a similar url to /bible/#phil-001-001 -->
             <a href="{% url "bible:index" verse_id=verse.get_id %}"
                 id="verse-{{ verse.get_id }}"

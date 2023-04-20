@@ -38,6 +38,9 @@ class Profile(models.Model):
     # Each `Profile` contains an optional phone number field that is validated
     # against a regex.
     phone = models.CharField(validators=[validate_phone], max_length=60, null=True, blank=True, verbose_name="Phone Number")
+
+    def get_readable_faith_tradition(self):
+        return FaithTradition(self.faith_tradition).label
     
     def __str__(self):
         '''
