@@ -27,6 +27,12 @@ class Book(models.Model):
     # The testament the book belongs to
     testament = models.CharField(max_length=3, choices=TESTAMENTS, blank=False)
 
+    def __str__(self):
+        return self.full_title
+    
+    def get_chapters(self):
+        return self.chapter_set.order_by("id")
+
 
 class Chapter(models.Model):
 
@@ -46,6 +52,9 @@ class Chapter(models.Model):
     
     def __str__(self):
         return f'{self.book.full_title} {self.number}'
+    
+    def get_verses(self):
+        return self.verse_set.order_by("id")
 
 
 class Verse(models.Model):
