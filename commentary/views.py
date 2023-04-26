@@ -19,7 +19,8 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["books"] = Book.objects.all()
+        context["verse"] = self.object.verse
+        context["books"] = Book.get_all_books()
         return context
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -27,7 +28,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["books"] = Book.objects.all()
+        context["verse"] = self.object.verse
+        context["books"] = Book.get_all_books()
         return context
 
     def get_success_url(self):
@@ -46,7 +48,8 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["books"] = Book.objects.all()
+        context["verse"] = self.object.verse
+        context["books"] = Book.get_all_books()
         return context
     
     def get_success_url(self):
