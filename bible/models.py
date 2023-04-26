@@ -32,6 +32,10 @@ class Book(models.Model):
     
     def get_chapters(self):
         return self.chapter_set.order_by("number")
+    
+    @staticmethod
+    def get_all_books():
+        return Book.objects.all().order_by("number")
 
 
 class Chapter(models.Model):
