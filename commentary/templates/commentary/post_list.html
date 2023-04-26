@@ -36,7 +36,6 @@
         <div class="col-sm-2">
             <form action="{% url "bible:toggle_vote" post_id=post.id %}">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-outline-secondary btn-sm" value="Edit post">Edit</button>
                 <button type="submit" class="btn btn-outline-secondary btn-sm" value="Vote post">Vote ({{ post.vote_set.count }})</button>
             </form>
         </div>
