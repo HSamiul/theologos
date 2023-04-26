@@ -1,5 +1,5 @@
 {% for book in books %}
-<h1 style="padding-top: 50px;">{{ book.full_title }}</h1>
+<h1 class="book-title">{{ book.full_title }}</h1>
     {% for chapter in book.get_chapters %}
         <h2>{{ chapter.number }}</h2>
         <p>

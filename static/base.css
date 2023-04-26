@@ -1,0 +1,14 @@
+body {
+    padding-top: 50px;
+}
+
+.commentary-heading, .book-title {
+    padding-top: 50px;
+}
+
+/* source: https://stackoverflow.com/a/11008050 */
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
