@@ -4,13 +4,12 @@
     <a class="navbar-brand" href={% url 'home' %}>Theologos</a>
 
     <div class="collapse navbar-collapse">
-
-        <!-- Bible navigation menu -->
-        {% if "bible" in request.path or "post" in request.path %}
-
         <div class="navbar-nav"> <!-- me-auto pushes account items to the right -->
             <a class="nav-item nav-link" href={% url 'home' %}>Home</a>
         </div>
+
+        <!-- Bible navigation menu -->
+        {% if "bible" in request.path or "post" in request.path %}
 
         <div class="dropdown me-auto">
             <a class="nav-link dropdown-toggle" href="#" data-bs-auto-close="outside" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,8 +58,8 @@
 
         {% else %}
 
-        <div class="navbar-nav me-auto"> <!-- me-auto pushes account items to the right -->
-            <a class="nav-item nav-link" href={% url 'home' %}>Home</a>
+        <div class="navbar-nav me-auto">
+            <a class="nav-item nav-link" href={% url 'bible:index' %}>Bible</a>
         </div>
 
         {% endif %}
