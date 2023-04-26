@@ -76,6 +76,16 @@ Run the following commands to set up the project:
 5. `python manage.py loaddata verses`
 
 ### Run the project
+Make sure you are in the virtual environment. To activate the venv, run `source ~/.virtualenvs/djangodev/bin/activate` (same command as above).
+
 Run the project with this command: `python manage.py runserver`. 
 
 You can then open the project with the link outputted to your terminal. It will look something like `http://localhost:8000/`.
+
+### OPTIONAL: Create an admin user
+
+Django provides a built-in admin page, which allows you to create, update, and delete objects in your database using a web interface. If you are interested in contributing to Theologos, it may be helpful to set up a superuser (a user who can access the admin page). 
+
+Run the following command in your virtual environment and follow the instructions in the terminal: `python manage.py createsuperuser`
+
+Access the admin page by opening the development server with the URL `/admin`. It will look something like this: `http://localhost:8000/admin`
