@@ -24,8 +24,8 @@ the Book fixture, based on the 'length' field of each book.
 class Book:
     def __init__(self, fields):
         self.length = int(fields["length"])
-        fields.pop("length")
-        self.fields = fields
+        self.fields = fields.copy()
+        self.fields.pop("length")
 
     def getFixtureInstance(self):
         fixture = dict()
@@ -69,11 +69,7 @@ class Book:
         chapters = []
         with open(filepath, "r") as csv_file:
             reader = csv.DictReader(csv_file)
-            number = 1
             for line in reader: # line is a dictionary
-                line["number"] = number
-                number += 1
-
                 b = Book(line)
                 books.append(b.getFixtureInstance())
                 chapters.extend(b.getChapterFixtures())
@@ -92,30 +88,34 @@ class Book:
 class Verse:
     
     def __init__(self, fields):
-        self.fields = fields
-        self.book = fields["book"]
-        fields.pop("book")
-        self.chapter_number = fields["chapter"]
-        fields["chapter"] = self.generate_chapter_id()
+        fields = fields.copy() # make sure to not mutate the original fields dictionary
+
+        book = fields["book"]
+        chapter_num = fields["chapter"]
+        fields["chapter"] = Verse.generate_chapter_id(book, chapter_num) # need the chapter id as a foreign key in Postgres
+        self.chapter = fields["chapter"]
+
         self.number = fields["number"]
         fields["id"] = self.generate_id()
         fields["original_text"] = fields["text"]
-        fields.pop("text")
         fields["number"] = self.number
+        fields.pop("book") # don't need these fields from the original CSV file
+        fields.pop("text")
+        self.fields = fields
 
-    def generate_chapter_id(self):
-        book = self.book
-        chap_num = str(self.chapter_number)
-        # chap_num should be 3 digits long
-        chap_num = "0" * (3-len(chap_num)) + chap_num
-        return f"{book}-{chap_num}"
+    @staticmethod
+    def generate_chapter_id(book, chapter_num):
+        chapter_num = str(chapter_num)
+        # chapter_num should be 3 digits long. add leading zeros if necessary
+        chapter_num = "0" * (3-len(chapter_num)) + chapter_num
+        return f"{book}-{chapter_num}"
 
     def generate_id(self):
-        chap_id = self.fields["chapter"]
-        num = str(self.number) 
+        chapter_id = self.chapter
+        num = str(self.number)
         # num should be 3 digits long
         num = "0" * (3-len(num)) + num
-        return f"{chap_id}-{num}"
+        return f"{chapter_id}-{num}"
 
     def getFixtureInstance(self):
         fixture = dict()
@@ -128,19 +128,7 @@ class Verse:
         verses = []
         with open(filepath, "r") as csv_file:
             reader = csv.DictReader(csv_file)
-            prev_book = None
-            prev_chap_num = None
             for line in reader: # line is a dictionary
-                # reset verse number for new chapters (relies on CSV being written in order)
-                if line["chapter"] == prev_chap_num and line["book"] == prev_book:
-                    number += 1
-                else:
-                    number = 1
-                    prev_chap_num = line["chapter"]
-                    prev_book = line["book"]
-                line["number"] = number
-                print(line["book"], prev_book, line["chapter"], prev_chap_num, number)
-
                 v = Verse(line)
                 verses.append(v.getFixtureInstance())
 

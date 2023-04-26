@@ -1,5 +1,5 @@
-symbol,full_title,testament,length
-gen,Genesis,old,50
-ex,Exodus,old,40
-lev,Leviticus,old,27
-phil,Philippians,new,4
+symbol,number,full_title,testament,length
+gen,1,Genesis,old,50
+ex,2,Exodus,old,40
+lev,3,Leviticus,old,27
+phil,50,Philippians,new,4

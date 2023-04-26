@@ -9,7 +9,7 @@ from commentary.filters import PostFilter
 from django.views import View
 
 class BibleCommentaryView(View):
-    books = Book.objects.all()
+    books = Book.get_all_books()
 
     def get(self, request, *args, **kwargs):
         verse_id = kwargs.get('verse_id', None)

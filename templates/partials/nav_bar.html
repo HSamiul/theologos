@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse">
 
         <!-- Bible navigation menu -->
-        {% if "bible" in request.path %}
+        {% if "bible" in request.path or "post" in request.path %}
 
         <div class="navbar-nav"> <!-- me-auto pushes account items to the right -->
             <a class="nav-item nav-link" href={% url 'home' %}>Home</a>
