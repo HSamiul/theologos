@@ -1,5 +1,5 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Book, Verse
 from commentary.forms import PostCreationForm
@@ -61,7 +61,7 @@ class BibleCommentaryView(View):
                 post.save()
                 
                 # TODO: Flash success message
-                return redirect('bible:index', verse_id=verse_id) # reload the page
+                return HttpResponseRedirect(request.META['HTTP_REFERER']) # reload the page
             
             # TODO: Flash failure message and redirect to the same page
             else:
