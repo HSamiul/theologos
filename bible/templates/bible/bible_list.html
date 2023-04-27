@@ -14,8 +14,9 @@
             <a href="{% url "bible:index" verse_id=verse.get_id %}"
                 id="verse-{{ verse.get_id }}"
                 style="text-decoration: none; color: inherit; scroll-margin: 30px;">
-                <sup>{{ verse.number }}</sup> {{ verse.original_text }}
+                <sup>{{ verse.number }}</sup>
             </a>
+            {{ verse.original_text }}
         {% endfor %}
         </p>
     {% endfor %}
