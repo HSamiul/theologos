@@ -1,28 +1,40 @@
+<!DOCTYPE html>
 {% extends "base.html" %}
+<!-- In this file, we set up the general structure of the split view. -->
 
 {% load crispy_forms_tags %}
 
+<!-- implementing the content block in "templates/base.html" -->
 {% block content %}
 <div class="container my-5">
     <div class="row" style="overflow-y: hidden">
-        <div class="col me-5" style="height: 90vh; overflow-y: scroll;"> <!-- left half of page is the bible -->
-        
+
+        <!-- left half of page is the Bible -->
+        <div class="col me-5" style="height: 90vh; overflow-y: scroll;">
             {% include "./bible_list.html" with books=books %}
-            
         </div>
 
-        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;"> <!-- right half of page is commentary -->
-        <div class="col">{% block back-button %} {% endblock %}</div>
-        <h2 style="padding-top: 50px;">{% block commentary-heading %} {% endblock %}</h2>
-          {% block commentary %} {% endblock %}
+        <!-- right half of page is commentary -->
+        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;">
+            <!-- back button that can be overridden by child templates -->
+            <div class="col">{% block back-button %} {% endblock %}</div>
+
+            <!-- heading for the right half of the page is in the 
+                 commentary-headingblock which can be overriden by child templates -->
+            <h2>{% block commentary-heading %} {% endblock %}</h2>
+
+            <!-- content for the right half of the page is in the commentary
+                 block can be overriden by child templates -->
+            {% block commentary %} {% endblock %}
         </div>
+
     </div>
 </div>
 <script>
-    // Scroll to selected verse (to counteract reloading the page to the top)
+    // jump to selected verse (to counteract reloading the page to the top)
     document.getElementById('verse-{{ verse.get_id }}').scrollIntoView({behavior: 'auto'});
 
-    // Stop filter dropdown from closing when clicking inside
+    // stop filter dropdown from closing when clicking inside
     document.getElementById('post-filter').addEventListener('click', function(e) {
         e.stopPropagation();
     });

@@ -1,10 +1,16 @@
+<!DOCTYPE html>
+<!-- In this file, we render the Bible (all books, chapters, and verses in the database). -->
+
+<!-- use all books from the context given from the view -->
 {% for book in books %}
 <h1 style="padding-top: 50px;">{{ book.full_title }}</h1>
+    <!-- render each chapters of the given book -->
     {% for chapter in book.get_chapters %}
         <h2>{{ chapter.number }}</h2>
         <p>
         {% for verse in chapter.get_verses %}
-            <!-- Jump to the desired verse with a similar url to /bible/#phil-001-001 -->
+            <!-- Make the verse a link with a similar url to /bible/#phil-001-001.
+                 This link will  -->
             <a href="{% url "bible:index" verse_id=verse.get_id %}"
                 id="verse-{{ verse.get_id }}"
                 style="text-decoration: none; color: inherit; scroll-margin: 30px;">
