@@ -10,12 +10,12 @@
     <div class="row" style="overflow-y: hidden">
 
         <!-- left half of page is the Bible -->
-        <div class="col me-5" style="height: 90vh; overflow-y: scroll;">
+        <div class="col me-5" style="height: 90vh; overflow-y: scroll; padding-top: 50px;">
             {% include "./bible_list.html" with books=books %}
         </div>
 
         <!-- right half of page is commentary -->
-        <div class="col ms-5" style="height: 90vh; overflow-y: scroll;">
+        <div class="col ms-5" style="height: 90vh; overflow-y: scroll; padding-top: 50px;">
             <!-- back button that can be overridden by child templates -->
             <div class="col">{% block back-button %} {% endblock %}</div>
 
