@@ -1,5 +1,9 @@
+<!DOCTYPE html>
 {% extends "./bible_split_view.html" %}
+<!-- In this file, we render the the right-side post list and post creation form. -->
 
+<!-- implementing the title block in "bible/templates/bible_split_view.html" 
+     which extends "templates/base.html" -->
 {% block title %} 
 
     {% if verse %}
@@ -10,27 +14,33 @@
 
 {% endblock %}
 
+<!-- implementing the commentary-heading block in "bible/templates/bible_split_view.html" -->
 {% block commentary-heading %}
 
     {% if verse %}
-        Comments for {{ verse }} 
+        Posts for {{ verse }} 
     {% else %}
         Select a verse
     {% endif %}
 
 {% endblock %}
 
-
+<!-- implementing the commentary block in "bible/templates/bible_split_view.html" -->
 {% block commentary %}
 
+    <!-- if a verse is selected, render the post list and post creation form -->
     {% if verse %}
         {% include "../commentary/post_list.html" with postFilterForm=postFilterForm posts=posts verse=verse%}
             
-        {% if user.is_authenticated %} <!-- If the user is signed in, let them comment  -->
+        <!-- if the user is signed in, let them comment  -->
+        {% if user.is_authenticated %}
             {% include "../commentary/post_create_form.html" with postCreationForm=postCreationForm %}
-        {% else %} <!-- If the user is not signed in, make them sign in to comment -->
+        <!-- if the user is not signed in, make them sign in to comment -->
+        {% else %}
             <span><a href={% url 'login' %}>Sign in</a> to add a comment</span>
         {% endif %}
+    
+    <!-- if a verse is not selected, do not render any post data -->
     {% else %}
         <span>Select a verse to view comments.</span>
     {% endif %}
