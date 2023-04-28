@@ -35,13 +35,13 @@ class BibleCommentaryView(View):
         This function handles a GET request to get data about the Bible. This 
         method handles one argument: verse_id. There are 2 cases handled in
         this method:
-        1. the user is viewing the Bible and no posts (example url: /bible)
+        1. the user is viewing the Bible and no posts (example url: /bible/)
         2. the user is viewing the Bible and a list of posts for one verse (example url: /bible/gen-001-001)
         '''
         # extract value for verse_id from arguments
         verse_id = kwargs.get('verse_id', None)
         
-        # case 1: the user is viewing the Bible and no posts (example url: /bible)
+        # case 1: the user is viewing the Bible and no posts (example url: /bible/)
         if not verse_id:
             # create a dictionary mapping variable names to their values
             context = {
