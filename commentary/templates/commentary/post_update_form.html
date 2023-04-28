@@ -1,22 +1,30 @@
 {% extends "../bible/bible_split_view.html" %}
 {% load crispy_forms_tags %}
+<!-- In this file, we render the the right-side post update form. -->
 
+<!-- implementing the title block in "bible/templates/bible_split_view.html" 
+     which extends "templates/base.html" -->
 {% block title %} Bible | {{ verse }} {% endblock %}
 
+<!-- implementing the back-button block in "bible/templates/bible_split_view.html" -->
 {% block back-button %}
 <a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
     Back to posts about {{ object.verse }}
 </a>
 {% endblock %}
 
+<!-- implementing the commentary-heading block in "bible/templates/bible_split_view.html" -->
 {% block commentary-heading %} Edit Your Post {% endblock %}
 
+<!-- implementing the commentary block in "bible/templates/bible_split_view.html" -->
 {% block commentary %}
-{% if user.is_authenticated and object.author.user.pk == user.pk %} <!-- Only let users delete their own comments -->
+<!-- Only let logged in users delete their own comments -->
+{% if user.is_authenticated and object.author.user.pk == user.pk %}
 <div class="row">
     <div class="col">
         <form method="POST">
             {% csrf_token %}
+            <!-- The update form is automatically passed to the template by Django's UpdateView -->
             {{ form | crispy }}
             <div class="d-grid gap-2">
                 <button class="btn btn-success mt-3">Save</button>
@@ -25,7 +33,8 @@
     </div>
 </div>
 
-{% else %} <!-- If the user is not the owner of the comment -->
+<!-- If the user is not the owner of the comment -->
+{% else %}
     <span>You are not authorized to edit this post</span>
 {% endif %}
 {% endblock %}
