@@ -10,23 +10,24 @@
 </a>
 {% endblock %}
 
-{% block commentary-heading %} Are You Sure? {% endblock %}
+{% block commentary-heading %} Are you sure? {% endblock %}
 
 {% block commentary %}
-<!-- Only let users delete their own comments -->
+<!-- Only let users delete their own posts -->
 {% if user.is_authenticated and object.author.user.pk == user.pk %}
     
     <div class="row">
         <div class="col">
-            <p>{{ object.verse.original_text }}</p>
-        <form method="POST">
-            {% csrf_token %}
-            <!-- The delete form is automatically passed to the template by Django's DeleteView -->
-            {{ form | crispy }}
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </div>
-        </form>
+            <h5>Deleting the post for {{ object.verse }}: </h5>
+            <p>"{{ object.text }}"</p>
+            <form method="POST">
+                {% csrf_token %}
+                <!-- The delete form is automatically passed to the template by Django's DeleteView -->
+                {{ form | crispy }}
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 
