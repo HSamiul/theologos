@@ -2,6 +2,45 @@ body {
     padding-top: 50px;
 }
 
+.home-container {
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  gap: 20px;
+
+  /* justify-content: center; */
+  /* align-items: center; */
+
+  grid-template-columns: 1fr 1fr;
+}
+
+.home-container > .read {
+  /* justify-self: start; */
+  justify-self: end;
+  align-self: start;
+}
+
+.home-container > .register {
+  justify-self: start;
+  align-self: start;
+}
+
+.home-container > .item {
+  /* background-color: pink; */
+}
+
+.home-container > .blurb {
+  grid-column: 1/-1; /* take up the entire row */
+
+  justify-self: center;
+  align-self: end;
+  width: 50%;
+
+  text-align: center;
+  font-size: x-large;
+}
+
 .commentary-heading, .book-title {
     padding-top: 50px;
 }

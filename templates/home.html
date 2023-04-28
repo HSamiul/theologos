@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
-Welcome to Theologos!
+<div class="home-container">
+    <div class="item blurb">
+        <h1>Welcome to Theologos</h1>
+        <h4>Start sharing and viewing commentary on the Bible today.</h4>
+    </div>
+
+    <div class="item read">
+        <a href={% url 'bible:index' %} class="item btn btn-primary btn-lg">Read the Bible</a>
+    </div>
+
+    <div class="item register">
+        <a href={% url 'accounts:register' %} class="item btn btn-primary btn-lg">Make an account</a>
+    </div>
+</div>
 {% endblock %}
