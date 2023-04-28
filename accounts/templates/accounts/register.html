@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 <title>{% block title %}Create an Account{% endblock %}</title>
 
 {% block content %}
@@ -9,11 +11,11 @@
     <div class="form-group">
         <form method='POST'>
             {% csrf_token %}
-            <table>
-                {{ userCreationForm.as_table }}
-                {{ profileForm.as_table }}
-            </table>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            {{ userCreationForm|crispy }}
+            {{ profileForm|crispy }}
+
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 </div>
