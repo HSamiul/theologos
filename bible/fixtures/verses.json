@@ -772,5 +772,275 @@
       "id": "phil-004-023",
       "original_text": "The grace of the Lord Jesus Christ be with you all. Amen."
     }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "1",
+      "id": "phil-001-001",
+      "original_text": "Paul and Timothy, servants of Jesus Christ, to all the saints in Christ Jesus who are at Philippi, with the overseers and servants:"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "2",
+      "id": "phil-001-002",
+      "original_text": "Grace to you and peace from God our Father and the Lord Jesus Christ."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "3",
+      "id": "phil-001-003",
+      "original_text": "I thank my God whenever I remember you,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "4",
+      "id": "phil-001-004",
+      "original_text": "always in every request of mine on behalf of you all, making my requests with joy,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "5",
+      "id": "phil-001-005",
+      "original_text": "for your partnership in furtherance of the Good News from the first day until now;"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "6",
+      "id": "phil-001-006",
+      "original_text": "being confident of this very thing, that he who began a good work in you will complete it until the day of Jesus Christ."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "7",
+      "id": "phil-001-007",
+      "original_text": "It is even right for me to think this way on behalf of all of you, because I have you in my heart, because both in my bonds and in the defense and confirmation of the Good News, you all are partakers with me of grace."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "8",
+      "id": "phil-001-008",
+      "original_text": "For God is my witness, how I long after all of you in the tender mercies of Christ Jesus."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "9",
+      "id": "phil-001-009",
+      "original_text": "This I pray, that your love may abound yet more and more in knowledge and all discernment,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "10",
+      "id": "phil-001-010",
+      "original_text": "so that you may approve the things that are excellent, that you may be sincere and without offense to the day of Christ,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "11",
+      "id": "phil-001-011",
+      "original_text": "being filled with the fruits of righteousness which are through Jesus Christ, to the glory and praise of God."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "12",
+      "id": "phil-001-012",
+      "original_text": "Now I desire to have you know, brothers, that the things which happened to me have turned out rather to the progress of the Good News,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "13",
+      "id": "phil-001-013",
+      "original_text": "so that it became evident to the whole palace\u2020 guard, and to all the rest, that my bonds are in Christ,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "14",
+      "id": "phil-001-014",
+      "original_text": "and that most of the brothers in the Lord, being confident through my bonds, are more abundantly bold to speak the word of God without fear."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "15",
+      "id": "phil-001-015",
+      "original_text": "Some indeed preach Christ even out of envy and strife, and some also out of good will."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "16",
+      "id": "phil-001-016",
+      "original_text": "The former insincerely preach Christ from selfish ambition, thinking that they add affliction to my chains;"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "17",
+      "id": "phil-001-017",
+      "original_text": "but the latter out of love, knowing thatI am appointed for the defense of the Good News."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "18",
+      "id": "phil-001-018",
+      "original_text": "What does it matter? Only that in every way, whether in pretense or in truth, Christ is proclaimed. I rejoice in this, yes, and will rejoice."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "19",
+      "id": "phil-001-019",
+      "original_text": "For I know that this will turn out to my salvation through your prayers and the supply of the Spirit of Jesus Christ,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "20",
+      "id": "phil-001-020",
+      "original_text": "according to my earnest expectation and hope, that I will in no way be disappointed, but with all boldness, as always, now also Christ will be magnified in my body, whether by life or by death."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "21",
+      "id": "phil-001-021",
+      "original_text": "For to me to live is Christ, and to die is gain."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "22",
+      "id": "phil-001-022",
+      "original_text": "But if I live on in the flesh, this will bring fruit from my work; yet I don\u2019t know what I will choose."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "23",
+      "id": "phil-001-023",
+      "original_text": "But I am hard pressed between the two, having the desire to depart and be with Christ, which is far better."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "24",
+      "id": "phil-001-024",
+      "original_text": "Yet to remain in the flesh is more needful for your sake."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "25",
+      "id": "phil-001-025",
+      "original_text": "Having this confidence, I know that I will remain, yes, and remain with you all for your progress and joy in the faith,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "26",
+      "id": "phil-001-026",
+      "original_text": "that your boasting may abound in Christ Jesus in me through my presence with you again."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "27",
+      "id": "phil-001-027",
+      "original_text": "Only let your way of life be worthy of the Good News of Christ, that whether I come and see you or am absent, I may hear of your state, that you stand firm in one spirit, with one soul striving for the faith of the Good News;"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "28",
+      "id": "phil-001-028",
+      "original_text": "and in nothing frightened by the adversaries, which is for them a proof of destruction, but to you of salvation, and that from God."
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "29",
+      "id": "phil-001-029",
+      "original_text": "Because it has been granted to you on behalf of Christ, not only to believe in him, but also to suffer on his behalf,"
+    }
+  },
+  {
+    "model": "bible.verse",
+    "fields": {
+      "chapter": "phil-001",
+      "number": "30",
+      "id": "phil-001-030",
+      "original_text": "having the same conflict which you saw in me and now hear is in me."
+    }
   }
 ]
