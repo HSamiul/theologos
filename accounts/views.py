@@ -92,11 +92,11 @@ def register(request):
         else:
             for error in profileForm.errors:
                 messages.error(request, profileForm.errors[error])
-                return redirect(request.path)
+                
             for error in userCreationForm.errors:
                 messages.error(request, userCreationForm.errors[error])
-                return redirect(request.path)
-            return HttpResponse('Failed to create user and profile :(') # TODO: give a more useful redirect
+                
+            return redirect(request.path)
   
     # if this URL was requested via a GET method, display a form to register a user
     else:
