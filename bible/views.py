@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 
 from .models import Book, Verse
 from commentary.forms import PostCreationForm
@@ -126,7 +127,8 @@ def toggle_vote(request, post_id):
     '''
     # do not allow votes while not logged in
     if not request.user.is_authenticated:
-        return HttpResponse('You must be signed in to upvote posts.') # TODO: give a more helpful response (flash a message?)
+        messages.error(request, "Please register an account to vote on posts")
+        return redirect("accounts:register")
     
     # get the profile of the user who made the request
     profile = request.user.profile

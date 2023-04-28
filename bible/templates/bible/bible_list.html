@@ -3,6 +3,7 @@
 
 <!-- use all books from the context given from the view -->
 {% for book in books %}
+
 <h1>{{ book.full_title }}</h1>
     <!-- render each chapters of the given book -->
     {% for chapter in book.get_chapters %}
