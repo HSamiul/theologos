@@ -1,8 +1,11 @@
 {% load crispy_forms_tags %}
+<!-- In this file, we render the post creation form -->
+<!-- This file is included in the bible/templates/bible/index.html template -->
 
 <div class="form-group">
   <form method="POST">
       {% csrf_token %}
+      <!-- The postCreationForm is passed in as part of the context in the include tag -->
       {{ postCreationForm | crispy }}
       <button type="submit" class="btn btn-success">Post</button>
   </form>

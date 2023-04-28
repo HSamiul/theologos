@@ -1,6 +1,6 @@
 {% extends "../bible/bible_split_view.html" %}
 {% load crispy_forms_tags %}
-<!-- In this file, we render the the right-side post update form. -->
+<!-- In this file, we render the post update form for the right side of the Bible split view. -->
 
 <!-- implementing the title block in "bible/templates/bible_split_view.html" 
      which extends "templates/base.html" -->
@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<!-- If the user is not the owner of the comment -->
+<!-- If the user is not the owner of the post -->
 {% else %}
     <span>You are not authorized to edit this post</span>
 {% endif %}
