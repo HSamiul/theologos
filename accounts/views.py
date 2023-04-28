@@ -96,7 +96,7 @@ def register(request):
             for error in userCreationForm.errors:
                 messages.error(request, userCreationForm.errors[error])
                 
-            return redirect(request.path)
+            return redirect(request.path) # TODO: prefill form with the existing data so user doesn't have to start over
   
     # if this URL was requested via a GET method, display a form to register a user
     else:

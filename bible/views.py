@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 
 from .models import Book, Verse
 from commentary.forms import PostCreationForm
@@ -69,7 +70,8 @@ class BibleCommentaryView(View):
 
 def toggle_vote(request, post_id):
     if not request.user.is_authenticated:
-        return HttpResponse('You must be signed in to upvote posts.') # TODO: give a more helpful response (flash a message?)
+        messages.error(request, "Please register an account to vote on posts")
+        return redirect("accounts:register")
     
     profile = request.user.profile
     
