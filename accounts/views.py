@@ -87,8 +87,8 @@ def register(request):
             profile.user = user # create the profile's foreign key to user and save
             profile.save()
             
-            messages.success(request, 'Account created successfully') # flash a success message
-            return HttpResponse('Created user and profile!') # TODO: Redirect to homepage instead
+            messages.success(request, 'Account created successfully. Please try logging in.') # flash a success message
+            return redirect("home")
         else:
             for error in profileForm.errors:
                 messages.error(request, profileForm.errors[error])
