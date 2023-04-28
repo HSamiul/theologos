@@ -2,23 +2,18 @@
 {% load crispy_forms_tags %}
 <!-- In this file, we render the post update form for the right side of the Bible split view. -->
 
-<!-- implementing the title block in "bible/templates/bible_split_view.html" 
-     which extends "templates/base.html" -->
 {% block title %} Bible | {{ verse }} {% endblock %}
 
-<!-- implementing the back-button block in "bible/templates/bible_split_view.html" -->
 {% block back-button %}
 <a href="{% url "bible:index" verse_id=object.verse.get_id %}" class="btn btn-light">
     Back to posts about {{ object.verse }}
 </a>
 {% endblock %}
 
-<!-- implementing the commentary-heading block in "bible/templates/bible_split_view.html" -->
 {% block commentary-heading %} Edit Your Post {% endblock %}
 
-<!-- implementing the commentary block in "bible/templates/bible_split_view.html" -->
 {% block commentary %}
-<!-- Only let logged in users delete their own comments -->
+<!-- Only let logged in users delete their own posts -->
 {% if user.is_authenticated and object.author.user.pk == user.pk %}
 <div class="row">
     <div class="col">
