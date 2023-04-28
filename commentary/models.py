@@ -7,12 +7,6 @@ class Post(models.Model):
     A user can create a `Post` on a Bible verse to share their commentary with
     others.
     '''
-    # [PK] The post ID (e.g. "gen-001-001-001")
-    # id = models.CharField(max_length=14, primary_key=True)
-    
-    # The post number (e.g. 12)
-    # number = models.IntegerField(unique=True, null=False)
-
     # The user who wrote this post
     author = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
    
@@ -30,13 +24,10 @@ class Post(models.Model):
 
     # The time this post was last updated
     update_time = models.DateTimeField(auto_now=True)
-    
-    # def get_id(self): # format: "<book_symbol>-<chapter_number>-<verse_number>-<number>"
-    #     return f'{self.verse.get_id()}-{self.number}'
 
     def get_comments(self):
         '''
-        Retrieve all comments of this post.
+        Retrieve all comments of this post ordered by creation time.
         '''
         return Comment.objects.filter(post=self).order_by("creation_time")
 
@@ -90,9 +81,9 @@ class Comment(models.Model):
 
     def get_child_comments(self):
         '''
-        Retrieve all child comments of this parent comment.
+        Retrieve all child comments of this parent comment ordered by creation time.
         '''
-        return Comment.objects.filter(parent_comment=self)
+        return Comment.objects.filter(parent_comment=self).order_by("creation_time")
     
     def __str__(self):
         return f"Comment by {self.author}: \"{self.text}\""

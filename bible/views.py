@@ -37,7 +37,7 @@ class BibleCommentaryView(View):
         method handles one argument: verse_id. There are 2 cases handled in
         this method:
         1. the user is viewing the Bible and no posts (example url: /bible/)
-        2. the user is viewing the Bible and a list of posts for one verse (example url: /bible/gen-01-01/)
+        2. the user is viewing the Bible and a list of posts for one verse (example url: /bible/gen-001-001)
         '''
         # extract value for verse_id from arguments
         verse_id = kwargs.get('verse_id', None)
@@ -51,9 +51,9 @@ class BibleCommentaryView(View):
             # call render which combines the given template and context into an HttpResponse
             return render(request, 'bible/index.html', context)
         
-        # case 2: the user is viewing the Bible and a list of posts for one verse (example url: /bible/gen-01-01/)
+        # case 2: the user is viewing the Bible and a list of posts for one verse (example url: /bible/gen-001-001)
 
-        # query the database for one specific verse that belongs to the given chapter and has the given verse_num
+        # query the database for one specific verse that has the given primary key/verse_id
         verse = get_object_or_404(Verse, pk=verse_id)
         
         # create an instance of PostFilter which will query the database for posts
@@ -87,7 +87,7 @@ class BibleCommentaryView(View):
         if not verse_id:
             return HttpResponse('Failed to post. You must select a verse to post.')
 
-        # query the database for one specific verse that belongs to the given chapter and has the given verse_num
+        # query the database for one specific verse that has the given primary key/verse_id
         verse = get_object_or_404(Verse, pk=verse_id)
         postCreationForm = PostCreationForm()
 
@@ -112,10 +112,8 @@ class BibleCommentaryView(View):
                 # save to database
                 post.save()
                 
-                # TODO: Flash success message
-                return redirect('bible:index', verse_id=verse_id) # reload the page
+                return HttpResponseRedirect(request.META['HTTP_REFERER']) # reload the page
             
-            # TODO: Flash failure message and redirect to the same page
             else:
                 return HttpResponse('your post was not valid so it was not posted.')
 
