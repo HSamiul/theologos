@@ -100,6 +100,10 @@ def register(request):
   
     # if this URL was requested via a GET method, display a form to register a user
     else:
+        if request.user.is_authenticated:
+            messages.error(request, "You cannot register an account while signed in.")
+            return redirect("home")
+        
         userCreationForm = UserCreationForm()
         profileForm = ProfileForm()
         
