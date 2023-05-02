@@ -63,13 +63,13 @@ class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
         return self.request.user.pk == user.pk
 
 
-class UserDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
+class UserDeleteView(DeleteView):
     model = User
     success_url = reverse_lazy("login")
 
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user.pk == user.pk
+    def get_object(self):
+        # TODO: Add a helpful message instead of just 404'ing
+        return get_object_or_404(User, id=self.request.user.id)
 
 
 def register(request):
