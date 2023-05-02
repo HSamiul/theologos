@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from typing import Any, Optional
+from django.db import models
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -6,22 +8,24 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+# from django.contrib.auth.decorators import user_passes_test
 
 from profiles.forms import ProfileForm
 from .forms import UserCreationForm
 from .models import User
 
-class UserDetailView(DetailView, LoginRequiredMixin, UserPassesTestMixin):
+# @user_passes_test
+class UserDetailView(DetailView):
     model = User
         
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["profile"] = self.get_object().profile
+        context["profile"] = self.get_object()
         return context
     
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user.pk == user.pk
+    def get_object(self):
+        # TODO: Add a helpful message instead of just 404'ing
+        return get_object_or_404(User, id=self.request.user.id)
     
 class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
     model = User

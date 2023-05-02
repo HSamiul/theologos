@@ -70,7 +70,7 @@
                 <a class="nav-link dropdown-toggle navbar-last" href="#" data-bs-toggle="dropdown">Hello, {{ request.user.username }}</a>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href={% url 'accounts:detail' request.user.id %}>Account</a>
+                    <a class="dropdown-item" href={% url 'accounts:detail' %}>Account</a>
                     <a class="dropdown-item" href={% url 'logout' %}>Log out</a>
                 </div>
             </div>
