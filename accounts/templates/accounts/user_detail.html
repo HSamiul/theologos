@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col">
-            <form action="{% url 'accounts:edit' object.pk %}" method="GET">
+            <form action="{% url 'accounts:edit' %}" method="GET">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-secondary" value="Edit account">Edit Account Information</button>
             </form>
