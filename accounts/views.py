@@ -16,7 +16,8 @@ from .models import User
 class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["profile"] = self.get_object()
+        context["profile"] = self.get_object().profile
+        
         return context
     
     def get_object(self):
@@ -39,23 +40,33 @@ class UserUpdateView(UpdateView):
         return get_object_or_404(User, id=self.request.user.id)
     
     def form_valid(self, form):
-        user = self.get_object()
-        profileUpdateForm = ProfileForm(self.request.POST, instance=user.profile)
+        instance = self.get_object().profile
+        profileUpdateForm = ProfileForm(self.request.POST, instance=instance)
         
-        # need to check profile form separately
-        if profileUpdateForm.is_valid():
-            profileUpdateForm.save()
+        userFormValid = form.is_valid()
+        profileFormValid = profileUpdateForm.is_valid()
+        
+        if userFormValid and profileFormValid:
+            updatedUser = form.save()
+            updatedProfile = profileUpdateForm.save(commit=False)
+                        
+            updatedProfile.user = updatedUser
+            updatedProfile.save()
+            
             messages.success(self.request, 'Account updated successfully')
-            context = { 'object' : user, 'profile' : user.profile }
-            return render(self.request, 'accounts/user_detail.html', context)
+            return redirect("accounts:detail")
+        
         else:
             for error in profileUpdateForm.errors:
                 messages.error(self.request, profileUpdateForm.errors[error])
-                return redirect(self.request.path)
-            return HttpResponse('Failed to update account :(')
-    
+                
+            for error in form.errors:
+                messages.error(self.request, form.errors[error])
+                
+            return redirect(self.request.path)
+        
     def get_success_url(self):
-        return reverse_lazy("accounts:detail", kwargs={"pk":self.get_object().pk})
+        return reverse_lazy("accounts:detail")
 
 
 class UserDeleteView(DeleteView):
