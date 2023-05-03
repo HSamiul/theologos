@@ -1,30 +1,30 @@
-from django.shortcuts import render, redirect
+from typing import Any, Optional
+from django.db import models
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
 from profiles.forms import ProfileForm
 from .forms import UserCreationForm
 from .models import User
 
-class UserDetailView(DetailView, LoginRequiredMixin, UserPassesTestMixin):
-    model = User
-        
+# @user_passes_test
+class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["profile"] = self.get_object().profile
+        
         return context
     
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user.pk == user.pk
+    def get_object(self):
+        # TODO: Add a helpful message instead of just 404'ing
+        return get_object_or_404(User, id=self.request.user.id)
     
-class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
-    model = User
+class UserUpdateView(UpdateView):
     fields = ["username", "first_name", "last_name", "email"]
     template_name_suffix = "_update_form"
         
@@ -35,37 +35,46 @@ class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
         context["profileForm"] = ProfileForm(instance=user.profile)
         return context
     
+    def get_object(self):
+        # TODO: Add a helpful message instead of just 404'ing
+        return get_object_or_404(User, id=self.request.user.id)
+    
     def form_valid(self, form):
-        user = self.get_object()
-        profileUpdateForm = ProfileForm(self.request.POST, instance=user.profile)
+        instance = self.get_object().profile
+        profileUpdateForm = ProfileForm(self.request.POST, instance=instance)
         
-        # need to check profile form separately
-        if profileUpdateForm.is_valid():
-            profileUpdateForm.save()
+        userFormValid = form.is_valid()
+        profileFormValid = profileUpdateForm.is_valid()
+        
+        if userFormValid and profileFormValid:
+            updatedUser = form.save()
+            updatedProfile = profileUpdateForm.save(commit=False)
+                        
+            updatedProfile.user = updatedUser
+            updatedProfile.save()
+            
             messages.success(self.request, 'Account updated successfully')
-            context = { 'object' : user, 'profile' : user.profile }
-            return render(self.request, 'accounts/user_detail.html', context)
+            return redirect("accounts:detail")
+        
         else:
             for error in profileUpdateForm.errors:
                 messages.error(self.request, profileUpdateForm.errors[error])
-                return redirect(self.request.path)
-            return HttpResponse('Failed to update account :(')
-    
+                
+            for error in form.errors:
+                messages.error(self.request, form.errors[error])
+                
+            return redirect(self.request.path)
+        
     def get_success_url(self):
-        return reverse_lazy("accounts:detail", kwargs={"pk":self.get_object().pk})
-    
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user.pk == user.pk
+        return reverse_lazy("accounts:detail")
 
 
-class UserDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
-    model = User
+class UserDeleteView(DeleteView):
     success_url = reverse_lazy("login")
 
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user.pk == user.pk
+    def get_object(self):
+        # TODO: Add a helpful message instead of just 404'ing
+        return get_object_or_404(User, id=self.request.user.id)
 
 
 def register(request):

@@ -10,7 +10,7 @@
     
   <div class="row mt-5">
       <div class="col-md-3 col-sm-6">
-          <a href="{% url 'accounts:detail' object.pk %}" class="btn btn-light">
+          <a href="{% url 'accounts:detail' %}" class="btn btn-light">
             Back to your account
           </a>
       </div>
@@ -27,7 +27,7 @@
               {{ form | crispy }}
               {{ profileForm | crispy }}
               <div class="d-grid gap-2">
-                  <button class="btn btn-success mt-3">Save</button>
+                  <button type="submit" class="btn btn-success mt-3">Save changes</button>
               </div>
           </form>
       </div>
