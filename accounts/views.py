@@ -6,9 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-# from django.contrib.auth.decorators import user_passes_test
 
 from profiles.forms import ProfileForm
 from .forms import UserCreationForm
@@ -25,8 +23,7 @@ class UserDetailView(DetailView):
         # TODO: Add a helpful message instead of just 404'ing
         return get_object_or_404(User, id=self.request.user.id)
     
-class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
-    model = User
+class UserUpdateView(UpdateView):
     fields = ["username", "first_name", "last_name", "email"]
     template_name_suffix = "_update_form"
         
@@ -36,6 +33,10 @@ class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
         context["profile"] = user.profile
         context["profileForm"] = ProfileForm(instance=user.profile)
         return context
+    
+    def get_object(self):
+        # TODO: Add a helpful message instead of just 404'ing
+        return get_object_or_404(User, id=self.request.user.id)
     
     def form_valid(self, form):
         user = self.get_object()
@@ -55,10 +56,6 @@ class UserUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
     
     def get_success_url(self):
         return reverse_lazy("accounts:detail", kwargs={"pk":self.get_object().pk})
-    
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user.pk == user.pk
 
 
 class UserDeleteView(DeleteView):
